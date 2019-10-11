@@ -924,6 +924,7 @@ int tributeRefactor(struct gameState *state, int handPos){
 
 int mineRefactor(int choice1, int choice2, struct gameState *state, int handPos)
 {
+    int i;
     int j;
     int currentPlayer = whoseTurn(state);
 
