@@ -681,7 +681,9 @@ int getCost(int cardNumber)
     return -1;
 }
 
-int baronRefactor(int card, int choice1, struct gameState *state, int *currentPlayer){
+int baronRefactor(int card, int choice1, struct gameState *state){
+    int currentPlayer = whoseTurn(state);
+
     state->numBuys++;//Increase buys by 1!
     if (choice1 > 0) { //Boolean true or going to discard an estate
         int p = 0;//Iterator for hand!
@@ -735,7 +737,9 @@ int baronRefactor(int card, int choice1, struct gameState *state, int *currentPl
     return 0;
 }
 
-int minionRefactor(int choice1, int choice2, struct gameState *state, int handPos, int *currentPlayer){
+int minionRefactor(int choice1, int choice2, struct gameState *state, int handPos){
+    int currentPlayer = whoseTurn(state);
+
     //+1 action
     state->numActions++;
 
@@ -755,7 +759,7 @@ int minionRefactor(int choice1, int choice2, struct gameState *state, int handPo
         }
 
         //draw 4
-        for (i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             drawCard(currentPlayer, state);
         }
@@ -774,7 +778,7 @@ int minionRefactor(int choice1, int choice2, struct gameState *state, int handPo
                     }
 
                     //draw 4
-                    for (j = 0; j < 4; j++)
+                    for (int j = 0; j < 4; j++)
                     {
                         drawCard(i, state);
                     }
@@ -994,7 +998,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         return 0;
 
     case baron:
-        baronRefactor(card, choice1, state, &currentPlayer);
+        baronRefactor(card, choice1, state);
         
     case great_hall:
         //+1 Card
@@ -1008,7 +1012,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         return 0;
 
     case minion:
-        minionRefactor(choice1, choice2, state, handPos, &currentPlayer);
+        minionRefactor(choice1, choice2, state, handPos);
 
     case steward:
         if (choice1 == 1)
