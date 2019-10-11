@@ -922,6 +922,46 @@ int tributeRefactor(struct gameState *state, int handPos){
     return 0;
 }
 
+int mineRefactor(int choice1, int choice2, struct gameState *state, int handPos)
+{
+    int j;
+    int currentPlayer = whoseTurn(state);
+
+    j = state->hand[currentPlayer][choice1];  //store card we will trash
+
+        if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold)
+        {
+            return -1;
+        }
+
+        if (choice2 > treasure_map || choice2 < curse)
+        {
+            return -1;
+        }
+
+        if ( (getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) )
+        {
+            return -1;
+        }
+
+        gainCard(choice2, state, 2, currentPlayer);
+
+        //discard card from hand
+        discardCard(handPos, currentPlayer, state, 0);
+
+        //discard trashed card
+        for (i = 0; i < state->handCount[currentPlayer]; i++)
+        {
+            if (state->hand[currentPlayer][i] == j)
+            {
+                discardCard(i, currentPlayer, state, 0);
+                break;
+            }
+        }
+
+        return 0;
+}
+
 int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
 {
     int i;
@@ -932,7 +972,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     int currentPlayer = whoseTurn(state);
     int nextPlayer = currentPlayer + 1;
 
-    int tributeRevealedCards[2] = {-1, -1};
+    //int tributeRevealedCards[2] = {-1, -1};
     int temphand[MAX_HAND];// moved above the if statement
     int drawntreasure=0;
     int cardDrawn;
@@ -1047,39 +1087,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         return -1;
 
     case mine:
-        j = state->hand[currentPlayer][choice1];  //store card we will trash
-
-        if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold)
-        {
-            return -1;
-        }
-
-        if (choice2 > treasure_map || choice2 < curse)
-        {
-            return -1;
-        }
-
-        if ( (getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) )
-        {
-            return -1;
-        }
-
-        gainCard(choice2, state, 2, currentPlayer);
-
-        //discard card from hand
-        discardCard(handPos, currentPlayer, state, 0);
-
-        //discard trashed card
-        for (i = 0; i < state->handCount[currentPlayer]; i++)
-        {
-            if (state->hand[currentPlayer][i] == j)
-            {
-                discardCard(i, currentPlayer, state, 0);
-                break;
-            }
-        }
-
-        return 0;
+        mineRefactor(choice1, choice2, state, handPos);
 
     case remodel:
         j = state->hand[currentPlayer][choice1];  //store card we will trash
