@@ -943,7 +943,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         return 0;
 
     case baron:
-        baronRefactor(card, choice1, gameState *state, &currentPlayer);
+        baronRefactor(card, choice1, state, &currentPlayer);
         
     case great_hall:
         //+1 Card
