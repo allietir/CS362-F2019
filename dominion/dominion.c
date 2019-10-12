@@ -925,12 +925,17 @@ int tributeRefactor(struct gameState *state, int handPos){
             state->coins += 2;
         }
 
-        else if (tributeRevealedCards[i] == estate || tributeRevealedCards[i] == duchy || tributeRevealedCards[i] == province || tributeRevealedCards[i] == gardens || tributeRevealedCards[i] == great_hall) { //Victory Card Found
+        /*Bug 7 added: added a negation "!" in front of the if statement, expected behavior is that if the revealed
+        cards are not any of these victory cards, then the player will draw 2 cards. If the revealed cards are one
+        of these victory cards, then the player will not draw any cards.*/
+        else if !(tributeRevealedCards[i] == estate || tributeRevealedCards[i] == duchy || tributeRevealedCards[i] == province || tributeRevealedCards[i] == gardens || tributeRevealedCards[i] == great_hall) { //Victory Card Found
             drawCard(currentPlayer, state);
             drawCard(currentPlayer, state);
         }
+        /*Bug 8 added: removed "= state->numActions + 2" and changed it to "++", expected behavior is that if an action card is revealed
+        it will add 1 action instead of 2.*/
         else { //Action Card
-            state->numActions = state->numActions + 2;
+            state->numActions++;
         }
     }
 
@@ -962,7 +967,9 @@ int mineRefactor(int choice1, int choice2, struct gameState *state, int handPos)
             return -1;
         }
 
-        gainCard(choice2, state, 2, currentPlayer);
+        /*Bug 10 added: changed choice2 to choice1, expected behavior is that the player
+        will gain the same card they chose to trash.*/
+        gainCard(choice1, state, 2, currentPlayer);
 
         //discard card from hand
         discardCard(handPos, currentPlayer, state, 0);
@@ -977,8 +984,7 @@ int mineRefactor(int choice1, int choice2, struct gameState *state, int handPos)
             }
         }
 
-        /**/
-        //return 0;
+        return 0;
 }
 
 int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
