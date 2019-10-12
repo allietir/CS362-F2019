@@ -684,7 +684,9 @@ int getCost(int cardNumber)
 int baronRefactor(int card, int choice1, struct gameState *state){
     int currentPlayer = whoseTurn(state);
 
-    state->numBuys++;//Increase buys by 1!
+    /*Bug 1 added: expected behavior is that the card will appear to resolve normally 
+    according to the chosen effects. However, the player's number of buys will not increase by 1.*/
+    //state->numBuys++;//Increase buys by 1!
     if (choice1 > 0) { //Boolean true or going to discard an estate
         int p = 0;//Iterator for hand!
         int card_not_discarded = 1;//Flag for discard set!
@@ -717,7 +719,10 @@ int baronRefactor(int card, int choice1, struct gameState *state){
             }
 
             else {
-                p++;//Next card
+                /*Bug 2 added: expected behavior is that only the first card in hand will be checked.
+                In most cases, this will result in an infinite loop unless the first card is an estate
+                card or there is only 1 card in hand.*/
+                //p++;//Next card
             }
         }
     }
@@ -771,7 +776,9 @@ int minionRefactor(int choice1, int choice2, struct gameState *state, int handPo
         {
             if (i != currentPlayer)
             {
-                if ( state->handCount[i] > 4 )
+                /*Bug 3 added: changed = to >=, expected behavior is that intead of players with at least 5 cards
+                in hand, it will be players with at least 4 cards in hand that will be affected by the discard.*/
+                if ( state->handCount[i] >= 4 )
                 {
                     //discard hand
                     while( state->handCount[i] > 0 )
@@ -782,7 +789,10 @@ int minionRefactor(int choice1, int choice2, struct gameState *state, int handPo
                     //draw 4
                     for (j = 0; j < 4; j++)
                     {
-                        drawCard(i, state);
+                        /*Bug 4 added: changed i to j, expected behavior is that the incorrect player will draw
+                        a card, and the same player won't draw a card twice in a row. This is also expected to
+                        produce an error when there are less than 4 players.*/
+                        drawCard(j, state);
                     }
                 }
             }
@@ -797,7 +807,10 @@ int ambassadorRefactor(int choice1, int choice2, struct gameState *state, int ha
     int i;
     int currentPlayer = whoseTurn(state);
 
-    if (choice2 > 2 || choice2 < 0)
+    /*Bug 5 added: removed "choice2 > 2 ||" from the if statement. Expected behavior is that a player can
+    select up to 3 copies of the same card, though they still cannot select a negative number of cards.
+    This may also affect how the rest of the card resolves.*/
+    if (choice2 < 0)
     {
         return -1;
     }
@@ -822,8 +835,10 @@ int ambassadorRefactor(int choice1, int choice2, struct gameState *state, int ha
     if (DEBUG)
         printf("Player %d reveals card number: %d\n", currentPlayer, state->hand[currentPlayer][choice1]);
 
+    /*Bug 6 added: expected behavior is that the card(s) will be discarded but
+    they will not return to the supply, therefore unaffected the supply count.*/
     //increase supply count for choosen card by amount being discarded
-    state->supplyCount[state->hand[currentPlayer][choice1]] += choice2;
+    //state->supplyCount[state->hand[currentPlayer][choice1]] += choice2;
 
     //each other player gains a copy of revealed card
     for (i = 0; i < state->numPlayers; i++)
@@ -940,7 +955,9 @@ int mineRefactor(int choice1, int choice2, struct gameState *state, int handPos)
             return -1;
         }
 
-        if ( (getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) )
+        /*Bug 9 added: removed "+ 3" from if statement. Expected behavior is that the player
+        will only be able to gain a treasure of lesser or equal value from the trashed card.*/
+        if ( (getCost(state->hand[currentPlayer][choice1]) ) > getCost(choice2) )
         {
             return -1;
         }
@@ -960,7 +977,8 @@ int mineRefactor(int choice1, int choice2, struct gameState *state, int handPos)
             }
         }
 
-        return 0;
+        /**/
+        //return 0;
 }
 
 int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
