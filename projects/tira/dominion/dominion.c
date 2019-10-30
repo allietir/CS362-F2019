@@ -808,7 +808,7 @@ int ambassadorRefactor(int choice1, int choice2, struct gameState *state, int ha
     int currentPlayer = whoseTurn(state);
 
     /*Bug 5 added: removed "choice2 > 2 ||" from the if statement. Expected behavior is that a player can
-    select up to 3 copies of the same card, though they still cannot select a negative number of cards.
+    select up to any number of copies of the same card, though they still cannot select a negative number of cards.
     This may also affect how the rest of the card resolves.*/
     if (choice2 < 0)
     {
@@ -962,7 +962,7 @@ int mineRefactor(int choice1, int choice2, struct gameState *state, int handPos)
 
         /*Bug 9 added: removed "+ 3" from if statement. Expected behavior is that the player
         will only be able to gain a treasure of lesser or equal value from the trashed card.*/
-        if ( (getCost(state->hand[currentPlayer][choice1]) ) > getCost(choice2) )
+        if ( (getCost(state->hand[currentPlayer][choice1]) ) < getCost(choice2) )
         {
             return -1;
         }
