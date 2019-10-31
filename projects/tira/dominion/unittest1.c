@@ -8,7 +8,7 @@
 
 #define TESTCARD "baron"
 
-//I followed the cardtest4.c example given to use, but many of my methods, formatting/comments, and variable name choices are my own.
+//I followed the cardtest4.c example given to us, but many of my methods, formatting/comments, and variable name choices are my own.
 int main() {
 	//success and fail counts
 	int numSuccess = 0;
