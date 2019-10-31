@@ -682,6 +682,8 @@ int getCost(int cardNumber)
 }
 
 int baronRefactor(int card, int choice1, struct gameState *state){
+
+    printf("now calling Baron card\n");
     int currentPlayer = whoseTurn(state);
 
     /*Bug 1 added: expected behavior is that the card will appear to resolve normally 
