@@ -32,9 +32,6 @@ unittest2: unittest2.c dominion.o rngs.o
 
 unittestresults: unittest1 unittest2
 	./unittest1 &> unittestresults.out
-	gcov dominion.c -b -f >> unittestresults.out
-	cat dominion.c.gcov >> unittestresults.out
-
 	./unittest2 &>> unittestresults.out
 	gcov dominion.c -b -f >> unittestresults.out
 	cat dominion.c.gcov >> unittestresults.out
