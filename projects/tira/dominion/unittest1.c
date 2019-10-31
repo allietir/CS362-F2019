@@ -199,7 +199,7 @@ int main() {
 	printf("\n");
 
 	printf("Tests completed for %s.\n", TESTCARD);
-	printf("%d out of %d tests passed.\n", numSuccess, numSuccess + numFail);
+	printf("%d out of %d tests passed.\n\n", numSuccess, numSuccess + numFail);
 
 	return 0;
 }
