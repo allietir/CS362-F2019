@@ -72,8 +72,8 @@ int main() {
 		numFail++;
 	}
 
-	printf("Test: coins = %d, expected = %d\tStatus: ", postState.coins[currentPlayer], preState.coins[currentPlayer] + netCoins);
-	if (postState.coins[currentPlayer] == preState.coins[currentPlayer] + netCoins)
+	printf("Test: coins = %d, expected = %d\tStatus: ", postState.coins, preState.coins + netCoins);
+	if (postState.coins == preState.coins + netCoins)
 	{
 		printf("SUCCESS\n");
 		numSuccess++;
@@ -84,8 +84,8 @@ int main() {
 		numFail++;
 	}
 
-	printf("Test: buys = %d, expected = %d\tStatus: ", postState.numBuys[currentPlayer], preState.numBuys[currentPlayer] + netBuys);
-	if (postState.numBuys[currentPlayer] == preState.numBuys[currentPlayer] + netBuys)
+	printf("Test: buys = %d, expected = %d\tStatus: ", postState.numBuys, preState.numBuys + netBuys);
+	if (postState.numBuys == preState.numBuys + netBuys)
 	{
 		printf("SUCCESS\n");
 		numSuccess++;
