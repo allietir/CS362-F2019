@@ -682,8 +682,6 @@ int getCost(int cardNumber)
 }
 
 int baronRefactor(int card, int choice1, struct gameState *state){
-
-    printf("now calling Baron card\n");
     int currentPlayer = whoseTurn(state);
 
     /*Bug 1 added: expected behavior is that the card will appear to resolve normally 
@@ -724,7 +722,8 @@ int baronRefactor(int card, int choice1, struct gameState *state){
                 /*Bug 2 added: expected behavior is that only the first card in hand will be checked.
                 In most cases, this will result in an infinite loop unless the first card is an estate
                 card or there is only 1 card in hand.*/
-                //p++;//Next card
+                //ASSIGNMENT 3 - getting rid of potential infinite loop so that this may be run
+                p++;//Next card
             }
         }
     }
