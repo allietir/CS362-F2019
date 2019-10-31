@@ -29,8 +29,8 @@ unittest1: unittest1.c dominion.o rngs.o
 
 unittestresults: unittest1
 	./unittest1 &> unittestresults.out
-	gcov unittest1.c -b -f >> unittestresults.out
-	cat unittest1.c.gcov >> unittestresults.out
+	gcov dominion.c -b -f >> unittestresults.out
+	cat dominion.c.gcov >> unittestresults.out
 
 
 all: playdom player 
