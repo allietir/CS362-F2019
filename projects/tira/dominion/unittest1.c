@@ -9,11 +9,16 @@
 #define TESTCARD "baron"
 
 int main() {
-	//initialize relevant variables
+	//success and fail counts
+	int numSuccess = 0;
+	int numFail = 0;
+
+	//initialize relevant card variables
 	int newCards = 0;
 	int discarded = 0;
-	int extraCoins = 0;
+	int netCoins = 4;
 	int shuffledCards = 0;
+	int netBuys = 2;
 
 	//int i, j;
 	int handPos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
@@ -32,18 +37,68 @@ int main() {
 	//initialize a game
 	initializeGame(numPlayers, k, seed, &preState);
 
-	// TEST 1: choice1 = 1 = discard estate, +4 gold
-	memcpy(&postState, &preState, sizeof (struct gameState));
-	choice1 = 1;
-	cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
-	printf("Test: hand count = %d, expected = %d\tStatus: ");
-	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - discarded)
-		printf("SUCCESS\n");
-	else
-		printf("FAIL\n");
+	printf("---------- Testing Card: %s ----------\n", TESTCARD);
 
+	// TEST 1: choice1 = 1 = discard estate, +4 gold
+	printf("---- TEST 1: choice1 = 1 = discard estate, +4 gold ----\n");
+
+	memcpy(&postState, &preState, sizeof (struct gameState));
+
+	choice1 = 1;
+
+	cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
+
+	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - discarded);
+	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - discarded)
+	{
+		printf("SUCCESS\n");
+		numSuccess++;
+	}
+	else
+	{
+		printf("FAIL\n");
+		numFail++;
+	}
+
+	printf("Test: deck count = %d, expected = %d\tStatus: ", postState.deckCount[currentPlayer], preState.deckCount[currentPlayer] - newCards + shuffledCards);
+	if (postState.deckCount[currentPlayer] == preState.deckCount[currentPlayer] - newCards + shuffledCards)
+	{
+		printf("SUCCESS\n");
+		numSuccess++;
+	}
+	else
+	{
+		printf("FAIL\n");
+		numFail++;
+	}
+
+	printf("Test: coins = %d, expected = %d\tStatus: ", postState.coins[currentPlayer], preState.coins[currentPlayer] + netCoins);
+	if (postState.coins[currentPlayer] == preState.coins[currentPlayer] + netCoins)
+	{
+		printf("SUCCESS\n");
+		numSuccess++;
+	}
+	else
+	{
+		printf("FAIL\n");
+		numFail++;
+	}
+
+	printf("Test: buys = %d, expected = %d\tStatus: ", postState.numBuys[currentPlayer], preState.numBuys[currentPlayer] + netBuys);
+	if (postState.numBuys[currentPlayer] == preState.numBuys[currentPlayer] + netBuys)
+	{
+		printf("SUCCESS\n");
+		numSuccess++;
+	}
+	else
+	{
+		printf("FAIL\n");
+		numFail++;
+	}
 
 	// TEST 2: choice1 = 0 = do not discard estate, gain an estate
+	printf("---- TEST 2: choice1 = 0 = do not discard estate, gain an estate ----\n");
+
 	choice1 = 0;
 
 
