@@ -41,7 +41,7 @@ int main() {
 	//initialize a game using pregame state, the pregame state will never change through testing
 	initializeGame(numPlayers, k, seed, &preState);
 
-	printf("----------------- Testing Card: %s -----------------\n", TESTCARD);
+	printf("----------------- Testing Card: %s -----------------\n\n", TESTCARD);
 
 
 	// TEST 1: choice1 = 1 = discard estate, +4 gold
@@ -58,7 +58,7 @@ int main() {
 	//call the card
 	cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
 
-	printf("Test: hand count = %d, expected = %d\t\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - discarded);
+	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - discarded);
 	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - discarded)
 	{
 		printf("SUCCESS\n");
@@ -70,7 +70,7 @@ int main() {
 		numFail++;
 	}
 
-	printf("Test: deck count = %d, expected = %d\t\tStatus: ", postState.deckCount[currentPlayer], preState.deckCount[currentPlayer] - drawnCards + shuffledCards);
+	printf("Test: deck count = %d, expected = %d\tStatus: ", postState.deckCount[currentPlayer], preState.deckCount[currentPlayer] - drawnCards + shuffledCards);
 	if (postState.deckCount[currentPlayer] == preState.deckCount[currentPlayer] - drawnCards + shuffledCards)
 	{
 		printf("SUCCESS\n");
@@ -82,7 +82,7 @@ int main() {
 		numFail++;
 	}
 
-	printf("Test: coins = %d, expected = %d\t\tStatus: ", postState.coins, preState.coins + netCoins);
+	printf("Test: coins = %d, expected = %d\tStatus: ", postState.coins, preState.coins + netCoins);
 	if (postState.coins == preState.coins + netCoins)
 	{
 		printf("SUCCESS\n");
@@ -94,7 +94,7 @@ int main() {
 		numFail++;
 	}
 
-	printf("Test: buys = %d, expected = %d\t\tStatus: ", postState.numBuys, preState.numBuys + netBuys);
+	printf("Test: buys = %d, expected = %d\tStatus: ", postState.numBuys, preState.numBuys + netBuys);
 	if (postState.numBuys == preState.numBuys + netBuys)
 	{
 		printf("SUCCESS\n");
@@ -106,7 +106,7 @@ int main() {
 		numFail++;
 	}
 
-	printf("Test: estate supply = %d, expected = %d\t\tStatus: ", postState.supplyCount[estate], preState.supplyCount[estate] + netSupply);
+	printf("Test: estate supply = %d, expected = %d\tStatus: ", postState.supplyCount[estate], preState.supplyCount[estate] + netSupply);
 	if (postState.supplyCount[estate] == preState.supplyCount[estate] + netSupply)
 	{
 		printf("SUCCESS\n");
@@ -117,6 +117,8 @@ int main() {
 		printf("FAIL\n");
 		numFail++;
 	}
+
+	printf("\n");
 
 
 	// TEST 2: choice1 = 0 = do not discard estate, gain an estate
@@ -134,7 +136,7 @@ int main() {
 	//call the card
 	cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
 
-	printf("Test: hand count = %d, expected = %d\t\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - discarded);
+	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - discarded);
 	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - discarded)
 	{
 		printf("SUCCESS\n");
@@ -146,7 +148,7 @@ int main() {
 		numFail++;
 	}
 
-	printf("Test: deck count = %d, expected = %d\t\tStatus: ", postState.deckCount[currentPlayer], preState.deckCount[currentPlayer] - drawnCards + shuffledCards);
+	printf("Test: deck count = %d, expected = %d\tStatus: ", postState.deckCount[currentPlayer], preState.deckCount[currentPlayer] - drawnCards + shuffledCards);
 	if (postState.deckCount[currentPlayer] == preState.deckCount[currentPlayer] - drawnCards + shuffledCards)
 	{
 		printf("SUCCESS\n");
@@ -158,7 +160,7 @@ int main() {
 		numFail++;
 	}
 
-	printf("Test: coins = %d, expected = %d\t\tStatus: ", postState.coins, preState.coins + netCoins);
+	printf("Test: coins = %d, expected = %d\tStatus: ", postState.coins, preState.coins + netCoins);
 	if (postState.coins == preState.coins + netCoins)
 	{
 		printf("SUCCESS\n");
@@ -170,7 +172,7 @@ int main() {
 		numFail++;
 	}
 
-	printf("Test: buys = %d, expected = %d\t\tStatus: ", postState.numBuys, preState.numBuys + netBuys);
+	printf("Test: buys = %d, expected = %d\tStatus: ", postState.numBuys, preState.numBuys + netBuys);
 	if (postState.numBuys == preState.numBuys + netBuys)
 	{
 		printf("SUCCESS\n");
@@ -182,7 +184,7 @@ int main() {
 		numFail++;
 	}
 
-	printf("Test: estate supply = %d, expected = %d\t\tStatus: ", postState.supplyCount[estate], preState.supplyCount[estate] + netSupply);
+	printf("Test: estate supply = %d, expected = %d\tStatus: ", postState.supplyCount[estate], preState.supplyCount[estate] + netSupply);
 	if (postState.supplyCount[estate] == preState.supplyCount[estate] + netSupply)
 	{
 		printf("SUCCESS\n");
@@ -194,7 +196,9 @@ int main() {
 		numFail++;
 	}
 
-	printf("Test completed for %s.\n", TESTCARD);
+	printf("\n");
+
+	printf("Tests completed for %s.\n", TESTCARD);
 	printf("%d out of %d tests passed.\n", numSuccess, numSuccess + numFail);
 
 	return 0;
