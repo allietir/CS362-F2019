@@ -30,8 +30,12 @@ unittest1: unittest1.c dominion.o rngs.o
 unittest2: unittest2.c dominion.o rngs.o
 	gcc -o unittest2 -g unittest2.c dominion.o rngs.o $(CFLAGS)
 
-unittestresults: unittest1
+unittestresults: unittest1 unittest2
 	./unittest1 &> unittestresults.out
+	gcov dominion.c -b -f >> unittestresults.out
+	cat dominion.c.gcov >> unittestresults.out
+
+	./unittest2 &> unittestresults.out
 	gcov dominion.c -b -f >> unittestresults.out
 	cat dominion.c.gcov >> unittestresults.out
 

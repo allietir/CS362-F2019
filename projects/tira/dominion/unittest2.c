@@ -59,21 +59,6 @@ int main() {
 	//call the card
 	cardEffect(minion, choice1, choice2, choice3, &postState, handPos, &bonus);
 
-	for ( i = 0; i < postState.numPlayers; i++)
-	{
-		printf("Test: player %d hand count = %d, expected = %d\tStatus: ", i + 1, postState.handCount[i], preState.handCount[i] - discarded + drawnCards);
-		if (postState.handCount[i] == preState.handCount[i] - discarded + drawnCards)
-		{
-			printf("SUCCESS\n");
-			numSuccess++;
-		}
-		else
-		{
-			printf("FAIL\n");
-			numFail++;
-		}
-	}
-
 	printf("Test: deck count = %d, expected = %d\tStatus: ", postState.deckCount[currentPlayer], preState.deckCount[currentPlayer] - drawnCards + shuffledCards);
 	if (postState.deckCount[currentPlayer] == preState.deckCount[currentPlayer] - drawnCards + shuffledCards)
 	{
@@ -108,6 +93,21 @@ int main() {
 	{
 		printf("FAIL\n");
 		numFail++;
+	}
+
+	for ( i = 0; i < postState.numPlayers; i++)
+	{
+		printf("Test: player %d hand count = %d, expected = %d\tStatus: ", i + 1, postState.handCount[i], preState.handCount[i] - discarded + drawnCards);
+		if (postState.handCount[i] == preState.handCount[i] - discarded + drawnCards)
+		{
+			printf("SUCCESS\n");
+			numSuccess++;
+		}
+		else
+		{
+			printf("FAIL\n");
+			numFail++;
+		}
 	}
 
 	printf("\n");
@@ -207,7 +207,7 @@ int main() {
 				numFail++;
 			}
 
-			printf("Test: deck count = %d, expected = %d\tStatus: ", postState.deckCount[i], preState.deckCount[i] - drawnCards + shuffledCards);
+			printf("Test: player %d deck count = %d, expected = %d\tStatus: ", i + 1, postState.deckCount[i], preState.deckCount[i] - drawnCards + shuffledCards);
 			if (postState.deckCount[i] == preState.deckCount[i] - drawnCards + shuffledCards)
 			{
 				printf("SUCCESS\n");
@@ -316,7 +316,7 @@ int main() {
 				numFail++;
 			}
 
-			printf("Test: deck count = %d, expected = %d\tStatus: ", postState.deckCount[i], preState.deckCount[i] - drawnCards + shuffledCards);
+			printf("Test: layer %d deck count = %d, expected = %d\tStatus: ", i + 1, postState.deckCount[i], preState.deckCount[i] - drawnCards + shuffledCards);
 			if (postState.deckCount[i] == preState.deckCount[i] - drawnCards + shuffledCards)
 			{
 				printf("SUCCESS\n");
@@ -331,7 +331,7 @@ int main() {
 	}
 
 	printf("\n");
-	
+
 	printf("Tests completed for %s.\n", TESTCARD);
 	printf("%d out of %d tests passed.\n\n", numSuccess, numSuccess + numFail);
 
