@@ -138,7 +138,7 @@ int main() {
 	{
 		if (preState.hand[currentPlayer][i] == estate)
 		{
-			preState.hand[currentPlayer][i] = mine
+			preState.hand[currentPlayer][i] = mine;
 		}
 	}
 
