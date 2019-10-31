@@ -37,7 +37,7 @@ int main() {
 	choice1 = 1;
 	cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
 	printf("Test: hand count = %d, expected = %d\tStatus: ");
-	if (postState.handCount[currentPlayer] == preState[currentPlayer] - discarded)
+	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - discarded)
 		printf("SUCCESS\n");
 	else
 		printf("FAIL\n");
