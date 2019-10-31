@@ -127,7 +127,7 @@ int main() {
 
 	//change choice variables based on card effects
 	choice1 = 0;
-	disarded = 0;
+	discarded = 0;
 	netCoins = 0;
 	netSupply = -1;
 
