@@ -687,7 +687,7 @@ int baronRefactor(int card, int choice1, struct gameState *state){
     /*Bug 1 added: expected behavior is that the card will appear to resolve normally 
     according to the chosen effects. However, the player's number of buys will not increase by 1.*/
     //state->numBuys++;//Increase buys by 1!
-    if (choice1 > 0) { //Boolean true or going to discard an estate
+    if (choice1 > 0) { //Boolean true for going to discard an estate
         int p = 0;//Iterator for hand!
         int card_not_discarded = 1;//Flag for discard set!
         while(card_not_discarded) {
