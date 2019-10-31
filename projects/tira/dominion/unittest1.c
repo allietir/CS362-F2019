@@ -14,8 +14,8 @@ int main() {
 	int extraCoins = 0;
 	int shuffledCards = 0;
 
-	int i, j, k;
-	int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
+	//int i, j;
+	int handPos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
 
 	//should be randomized
 	int seed = 999;
@@ -35,7 +35,7 @@ int main() {
 	// TEST 1: choice1 = 1 = discard estate, +4 gold
 	memcpy(&postState, &preState, sizeof (struct gameState));
 	choice1 = 1;
-	cardEffect(baron, choice1, choice2, choice3, &postState, handpo, &bonus);
+	cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 	// TEST 2: choice1 = 0 = do not discard estate, gain an estate
 	choice1 = 0;
