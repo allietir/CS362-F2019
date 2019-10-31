@@ -134,11 +134,11 @@ int main() {
 	netCoins = 4;
 
 	//modify hand to contain no estate card
-	for ( i = 0; i < preState.handCount[currentPlayer]; i++)
+	for ( i = 0; i < postState.handCount[currentPlayer]; i++)
 	{
-		if (preState.hand[currentPlayer][i] == estate)
+		if (postState.hand[currentPlayer][i] == estate)
 		{
-			preState.hand[currentPlayer][i] = mine;
+			postState.hand[currentPlayer][i] = mine;
 		}
 	}
 
