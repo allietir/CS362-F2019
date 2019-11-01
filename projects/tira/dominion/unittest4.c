@@ -76,8 +76,8 @@ int main() {
 		//copy pregame state over to post game
 		memcpy(&postState, &preState, sizeof (struct gameState));
 
-		postState->deck[nextPlayer][postState->deckCount[nextPlayer]-1] = topCard[i];
-		postState->deck[nextPlayer][postState->deckCount[nextPlayer]-2] = nextTopCard[i];
+		postState.deck[nextPlayer][postState.deckCount[nextPlayer]-1] = topCard[i];
+		postState.deck[nextPlayer][postState.deckCount[nextPlayer]-2] = nextTopCard[i];
 
 		//reset card names
 		strcpy(firstCard, "");
@@ -133,7 +133,7 @@ int main() {
 		printf("-- TEST %d: 1st card = %s, 2nd card = %s --\n", testCount + 1, firstCard, secondCard);
 
 		cardEffect(tribute, choice1, choice2, choice3, &postState, handPos, &bonus);
-		
+
 		testCount++;
 
 
