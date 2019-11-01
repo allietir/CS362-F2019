@@ -87,6 +87,20 @@ int main() {
 		numFail++;
 	}
 
+	//copper supply should be unaffected
+	printf("Test: copper supply = %d, expected = %d\tStatus: ", postState.supplyCount[copper], preState.supplyCount[copper] + 0);
+	if (postState.supplyCount[copper] == preState.supplyCount[copper] + 0)
+	{
+		printf("SUCCESS\n");
+		numSuccess++;
+	}
+	else
+	{
+		printf("FAIL\n");
+		numFail++;
+	}
+
+	//silver supply should decrease by 1
 	printf("Test: silver supply = %d, expected = %d\tStatus: ", postState.supplyCount[silver], preState.supplyCount[silver] + netSupply);
 	if (postState.supplyCount[silver] == preState.supplyCount[silver] + netSupply)
 	{
@@ -118,6 +132,20 @@ int main() {
 	//call the card
 	int result = cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
 
+	//copper supply should be unaffected
+	printf("Test: copper supply = %d, expected = %d\tStatus: ", postState.supplyCount[copper], preState.supplyCount[copper] + 0);
+	if (postState.supplyCount[copper] == preState.supplyCount[copper] + 0)
+	{
+		printf("SUCCESS\n");
+		numSuccess++;
+	}
+	else
+	{
+		printf("FAIL\n");
+		numFail++;
+	}
+
+	//gold supply should be unaffected
 	printf("Test: gold supply = %d, expected = %d\tStatus: ", postState.supplyCount[gold], preState.supplyCount[gold] + netSupply);
 	if (postState.supplyCount[gold] == preState.supplyCount[gold] + netSupply)
 	{
