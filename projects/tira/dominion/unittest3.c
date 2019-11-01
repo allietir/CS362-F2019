@@ -75,7 +75,7 @@ int main() {
 			discarded = choice2;
 
 			//call the card
-			cardEffect(ambassador, choice1, choice2, choice3, &postState, handPos, &bonus);
+			int result = cardEffect(ambassador, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 			drawnCards = 0;
 			printf("Test: player %d hand count = %d, expected = %d\tStatus: ", currentPlayer + 1, postState.handCount[currentPlayer], preState.handCount[currentPlayer] - discarded + drawnCards);
@@ -137,6 +137,7 @@ int main() {
 			}
 
 			printf("\n");
+			printf("%d", result);
 
 			testCount++;
 		}
