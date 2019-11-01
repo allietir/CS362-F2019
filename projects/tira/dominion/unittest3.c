@@ -92,7 +92,7 @@ int main() {
 
 			//reset discarded to 0 for non-currentPlayer players
 			discarded = 0;
-			for ( m = 1; i < postState.numPlayers; m++)
+			for ( m = 1; m < postState.numPlayers; m++)
 			{
 				printf("Test: player %d hand count = %d, expected = %d\tStatus: ", i + 1, postState.handCount[m], preState.handCount[m] - discarded + drawnCards);
 				if (postState.handCount[m] == preState.handCount[m] - discarded + drawnCards)
@@ -109,7 +109,7 @@ int main() {
 
 			//check discard piles  of non-currentPlayer players
 			gainedCards = 1;
-			for ( m = 1; i < postState.numPlayers; m++)
+			for ( m = 1; m < postState.numPlayers; m++)
 			{
 				printf("Test: player %d discard count = %d, expected = %d\tStatus: ", i + 1, postState.discardCount[m], preState.discardCount[m] + discarded + gainedCards);
 				if (postState.discardCount[m] == preState.discardCount[m] + discarded + gainedCards)
