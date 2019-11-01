@@ -14,7 +14,7 @@ int main() {
 	int numSuccess = 0;
 	int numFail = 0;
 
-	int i, j, m;
+	int i, j;
 	int testCount = 0;
 	char firstCard[10] = "";
 	char secondCard[10] = "";
@@ -24,6 +24,7 @@ int main() {
 	//some of these values will change depending on the test and card effect choice
 	int drawnCards = 0;
 	int discarded = 0;
+	int deckDiscard = 0;
 	int netCoins = 0;
 	//int shuffledCards = 0;
 	int netActions = 0;
@@ -68,7 +69,7 @@ int main() {
 
 	//define arrays for top cards of deck, for now any action card will suffice
 	int topCard[6] = {gold, gold, gold, estate, estate, baron};
-	int nextTopCard[6] = {gold, estate, mine, estate, mine, mine};
+	int nextTopCard[6] = {gold, estate, baron, estate, baron, baron};
 
 	//test all 6 2-card combinations of revealed cards
 	for (i = 0; i < 6; i++)
@@ -130,129 +131,67 @@ int main() {
 			netActions = 0;
 		}
 
-		printf("-- TEST %d: 1st card = %s, 2nd card = %s --\n", testCount + 1, firstCard, secondCard);
+		deckDiscard = 2;
+
+		printf("-- TEST %d: deck count = 10, 1st card = %s, 2nd card = %s --\n", testCount + 1, firstCard, secondCard);
 
 		cardEffect(tribute, choice1, choice2, choice3, &postState, handPos, &bonus);
 
-		testCount++;
-
-
-	}
-/*
-	for (i = 0; i < 3; i++)
-	{
-		for (j = 0; j < 3; j++)
+		printf("Test: currentPlayer hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - discarded + drawnCards);
+		if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - discarded + drawnCards)
 		{
-			
-
-			printf("-- TEST %d: choice1 = %d, choice2 = %d --\n", testCount + 1, i, j);
-
-			//change choice variables based on card effects
-			choice1 = i;
-			choice2 = j;
-			netSupply = choice2;
-			discarded = choice2;
-
-			//call the card
-			int result = cardEffect(ambassador, choice1, choice2, choice3, &postState, handPos, &bonus);
-
-			drawnCards = 0;
-			printf("Test: player %d hand count = %d, expected = %d\tStatus: ", currentPlayer + 1, postState.handCount[currentPlayer], preState.handCount[currentPlayer] - discarded + drawnCards);
-			if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - discarded + drawnCards)
-			{
-				printf("SUCCESS\n");
-				numSuccess++;
-			}
-			else
-			{
-				printf("FAIL\n");
-				numFail++;
-			}
-
-			//reset discarded to 0 for non-currentPlayer players
-			discarded = 0;
-			for ( m = 1; m < postState.numPlayers; m++)
-			{
-				printf("Test: player %d hand count = %d, expected = %d\tStatus: ", i + 1, postState.handCount[m], preState.handCount[m] - discarded + drawnCards);
-				if (postState.handCount[m] == preState.handCount[m] - discarded + drawnCards)
-				{
-					printf("SUCCESS\n");
-					numSuccess++;
-				}
-				else
-				{
-					printf("FAIL\n");
-					numFail++;
-				}
-			}
-
-			//check discard piles  of non-currentPlayer players
-			gainedCards = 1;
-			for ( m = 1; m < postState.numPlayers; m++)
-			{
-				printf("Test: player %d discard count = %d, expected = %d\tStatus: ", i + 1, postState.discardCount[m], preState.discardCount[m] + discarded + gainedCards);
-				if (postState.discardCount[m] == preState.discardCount[m] + discarded + gainedCards)
-				{
-					printf("SUCCESS\n");
-					numSuccess++;
-				}
-				else
-				{
-					printf("FAIL\n");
-					numFail++;
-				}
-			}
-
-			printf("Test: supply count = %d, expected = %d\tStatus: ", postState.supplyCount[preState.hand[currentPlayer][choice1]], preState.supplyCount[preState.hand[currentPlayer][choice1]] + netSupply);
-			if (postState.supplyCount[preState.hand[currentPlayer][choice1]] == preState.supplyCount[preState.hand[currentPlayer][choice1]] + netSupply)
-			{
-				printf("SUCCESS\n");
-				numSuccess++;
-			}
-			else
-			{
-				printf("FAIL\n");
-				numFail++;
-			}
-
-			//check out of bounds
-			if (choice2 > 2 || choice2 < 0)
-			{
-				printf("Test: choice2 = %d, exit status = %d, expected = -1\tStatus: ", j, result);
-				if (result == -1)
-				{
-					printf("SUCCESS\n");
-					numSuccess++;
-				}
-				else
-				{
-					printf("FAIL\n");
-					numFail++;
-				}
-			}
-			else
-			{
-				printf("Test: choice2 = %d, exit status = %d, expected = 0\tStatus: ", j, result);
-				if (result == 0)
-				{
-					printf("SUCCESS\n");
-					numSuccess++;
-				}
-				else
-				{
-					printf("FAIL\n");
-					numFail++;
-				}
-			}
-
-			printf("\n");
-
-			testCount++;
+			printf("SUCCESS\n");
+			numSuccess++;
 		}
+		else
+		{
+			printf("FAIL\n");
+			numFail++;
+		}
+
+		printf("Test: currentPlayer coins = %d, expected = %d\t\tStatus: ", postState.coins, preState.coins + netCoins);
+		if (postState.coins == preState.coins + netCoins)
+		{
+			printf("SUCCESS\n");
+			numSuccess++;
+		}
+		else
+		{
+			printf("FAIL\n");
+			numFail++;
+		}
+
+		printf("Test: currentPlayer actions = %d, expected = %d\t\tStatus: ", postState.numActions, preState.numActions + netActions);
+		if (postState.numActions == preState.numActions + netActions)
+		{
+			printf("SUCCESS\n");
+			numSuccess++;
+		}
+		else
+		{
+			printf("FAIL\n");
+			numFail++;
+		}
+
+		printf("Test: nextPlayer deck count = %d, expected = %d\tStatus: ", postState.deckCount[nextPlayer], preState.deckCount[nextPlayer] - deckDiscard);
+		if (postState.deckCount[nextPlayer] == preState.deckCount[nextPlayer] - deckDiscard)
+		{
+			printf("SUCCESS\n");
+			numSuccess++;
+		}
+		else
+		{
+			printf("FAIL\n");
+			numFail++;
+		}
+
+		printf("\n");
+
+		testCount++;
 	}
 
 	printf("Tests completed for %s.\n", TESTCARD);
-	printf("%d out of %d tests passed.\n\n", numSuccess, numSuccess + numFail);*/
+	printf("%d out of %d tests passed.\n\n", numSuccess, numSuccess + numFail);
 
 	return 0;
 }

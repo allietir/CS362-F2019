@@ -83,7 +83,7 @@ int main() {
 		numFail++;
 	}
 
-	printf("Test: actions = %d, expected = %d\t\tStatus: ", postState.numActions, preState.numBuys + netActions);
+	printf("Test: actions = %d, expected = %d\t\tStatus: ", postState.numActions, preState.numActions + netActions);
 	if (postState.numActions == preState.numActions + netActions)
 	{
 		printf("SUCCESS\n");
@@ -174,7 +174,7 @@ int main() {
 		numFail++;
 	}
 
-	printf("Test: player %d actions = %d, expected = %d\t\tStatus: ", currentPlayer + 1, postState.numActions, preState.numBuys + netActions);
+	printf("Test: player %d actions = %d, expected = %d\t\tStatus: ", currentPlayer + 1, postState.numActions, preState.numActions + netActions);
 	if (postState.numActions == preState.numActions + netActions)
 	{
 		printf("SUCCESS\n");
@@ -283,7 +283,7 @@ int main() {
 		numFail++;
 	}
 
-	printf("Test: player %d actions = %d, expected = %d\t\tStatus: ", currentPlayer + 1, postState.numActions, preState.numBuys + netActions);
+	printf("Test: player %d actions = %d, expected = %d\t\tStatus: ", currentPlayer + 1, postState.numActions, preState.numActions + netActions);
 	if (postState.numActions == preState.numActions + netActions)
 	{
 		printf("SUCCESS\n");
