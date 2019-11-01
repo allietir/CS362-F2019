@@ -1012,6 +1012,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         nextPlayer = 0;
     }
 
+    //ASSIGNMENT 3 - used for catching function return values for unit testing
     int result;
 
     //uses switch to select card and perform actions
