@@ -1011,7 +1011,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     if (nextPlayer > (state->numPlayers - 1)) {
         nextPlayer = 0;
     }
-    
+
     int result;
 
     //uses switch to select card and perform actions
@@ -1217,7 +1217,11 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         tributeRefactor(state, handPos);       
 
     case ambassador:
-        ambassadorRefactor(choice1, choice2, state, handPos);
+        result = ambassadorRefactor(choice1, choice2, state, handPos);
+        if (result == -1)
+            return -1;
+        else 
+            return 0;
 
     case cutpurse:
 
