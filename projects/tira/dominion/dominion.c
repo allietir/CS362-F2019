@@ -1011,7 +1011,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     if (nextPlayer > (state->numPlayers - 1)) {
         nextPlayer = 0;
     }
-
+    
+    int result;
 
     //uses switch to select card and perform actions
     switch( card )
@@ -1118,7 +1119,6 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         return -1;
 
     case mine:
-        int result;
         result = mineRefactor(choice1, choice2, state, handPos);
         if (result == -1)
             return -1;
