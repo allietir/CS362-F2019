@@ -1118,7 +1118,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         return -1;
 
     case mine:
-        int result = mineRefactor(choice1, choice2, state, handPos);
+        int result;
+        result = mineRefactor(choice1, choice2, state, handPos);
         if (result == -1)
             return -1;
         else 

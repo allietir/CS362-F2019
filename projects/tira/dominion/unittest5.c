@@ -128,7 +128,8 @@ int main() {
 	netSupply = 0;
 
 	//call the card
-	int result = cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
+	int result;
+	result = cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 	//copper supply should be unaffected
 	printf("Test: copper supply = %d, expected = %d\tStatus: ", postState.supplyCount[copper], preState.supplyCount[copper] + 0);
