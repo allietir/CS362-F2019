@@ -141,7 +141,7 @@ int main() {
 	netSupply = 0;
 
 	//call the card
-	int result = cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
+	result = cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 	//copper supply should be unaffected
 	printf("Test: copper supply = %d, expected = %d\tStatus: ", postState.supplyCount[copper], preState.supplyCount[copper] + 0);
@@ -186,7 +186,7 @@ int main() {
 
 	//*************************************************************************************************************
 	// TEST 3: discard = silver, gain = copper
-	printf("-- TEST 2: discard = silver, gain = copper --\n");
+	printf("-- TEST 3: discard = silver, gain = copper --\n");
 
 	//copy pregame state over to post game
 	memcpy(&postState, &preState, sizeof (struct gameState));
@@ -198,7 +198,7 @@ int main() {
 	netSupply = -1;
 
 	//call the card
-	int result = cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
+	result = cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 	//copper supply should be 1 less
 	printf("Test: copper supply = %d, expected = %d\tStatus: ", postState.supplyCount[copper], preState.supplyCount[copper] + netSupply);
@@ -242,8 +242,8 @@ int main() {
 	printf("\n");
 
 	//*************************************************************************************************************
-	// TEST 3: discard = adventurer, gain = copper
-	printf("-- TEST 2: discard = adventurer, gain = copper --\n");
+	// TEST 4: discard = adventurer, gain = copper
+	printf("-- TEST 4: discard = adventurer, gain = copper --\n");
 
 	//copy pregame state over to post game
 	memcpy(&postState, &preState, sizeof (struct gameState));
@@ -255,7 +255,7 @@ int main() {
 	netSupply = 0;
 
 	//call the card
-	int result = cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
+	result = cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 	//copper supply should be unaffected, check to be safe
 	printf("Test: copper supply = %d, expected = %d\tStatus: ", postState.supplyCount[copper], preState.supplyCount[copper] + netSupply);
@@ -287,8 +287,8 @@ int main() {
 	printf("\n");
 
 	//*************************************************************************************************************
-	// TEST 4: discard = copper, gain = adventurer
-	printf("-- TEST 2: discard = copper, gain = adventurer --\n");
+	// TEST 5: discard = copper, gain = adventurer
+	printf("-- TEST 5: discard = copper, gain = adventurer --\n");
 
 	//copy pregame state over to post game
 	memcpy(&postState, &preState, sizeof (struct gameState));
@@ -300,7 +300,7 @@ int main() {
 	netSupply = 0;
 
 	//call the card
-	int result = cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
+	result = cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 	//adventurer supply should be unaffected, check to be safe
 	printf("Test: copper supply = %d, expected = %d\tStatus: ", postState.supplyCount[adventurer], preState.supplyCount[adventurer] + netSupply);
