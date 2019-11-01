@@ -953,7 +953,7 @@ int mineRefactor(int choice1, int choice2, struct gameState *state, int handPos)
     int i;
     int j;
     int currentPlayer = whoseTurn(state);
-    return -1;
+
     j = state->hand[currentPlayer][choice1];  //store card we will trash
 
         if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold)
@@ -1118,7 +1118,11 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         return -1;
 
     case mine:
-        mineRefactor(choice1, choice2, state, handPos);
+        int result = mineRefactor(choice1, choice2, state, handPos);
+        if (result == -1)
+            return -1;
+        else 
+            return 0;
 
     case remodel:
         j = state->hand[currentPlayer][choice1];  //store card we will trash
