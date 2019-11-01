@@ -319,6 +319,9 @@ int main() {
 	netActions = 0;
 	deckDiscard = 0;
 
+	//copy pregame state over to post game
+	memcpy(&postState, &preState, sizeof (struct gameState));
+
 	//call the tribute card
 	cardEffect(tribute, choice1, choice2, choice3, &postState, handPos, &bonus);
 
