@@ -57,7 +57,7 @@ int main() {
 	//change choice variables based on test
 	choice1 = 0;
 	choice2 = silver;
-	postState->hand[currentPlayer][choice1] = copper;
+	postState.hand[currentPlayer][choice1] = copper;
 	netSupply = -1;
 
 	//call the card
@@ -111,7 +111,7 @@ int main() {
 	//change choice variables based on test
 	choice1 = 0;
 	choice2 = gold;
-	postState->hand[currentPlayer][choice1] = copper;
+	postState.hand[currentPlayer][choice1] = copper;
 	//no expected change to gold supply
 	netSupply = 0;
 
