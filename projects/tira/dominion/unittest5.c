@@ -59,7 +59,7 @@ int main() {
 	netSupply = -1;
 
 	//call the card
-	int result = cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
+	int result = cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - discarded + drawnCards + gainedHand);
 	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - discarded + drawnCards + gainedHand)
@@ -141,7 +141,7 @@ int main() {
 	netSupply = 0;
 
 	//call the card
-	result = cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
+	result = cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 	//copper supply should be unaffected
 	printf("Test: copper supply = %d, expected = %d\tStatus: ", postState.supplyCount[copper], preState.supplyCount[copper] + 0);
@@ -198,7 +198,7 @@ int main() {
 	netSupply = -1;
 
 	//call the card
-	result = cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
+	result = cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 	//copper supply should be 1 less
 	printf("Test: copper supply = %d, expected = %d\tStatus: ", postState.supplyCount[copper], preState.supplyCount[copper] + netSupply);
@@ -255,7 +255,7 @@ int main() {
 	netSupply = 0;
 
 	//call the card
-	result = cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
+	result = cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 	//copper supply should be unaffected, check to be safe
 	printf("Test: copper supply = %d, expected = %d\tStatus: ", postState.supplyCount[copper], preState.supplyCount[copper] + netSupply);
@@ -300,7 +300,7 @@ int main() {
 	netSupply = 0;
 
 	//call the card
-	result = cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
+	result = cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 	//adventurer supply should be unaffected, check to be safe
 	printf("Test: copper supply = %d, expected = %d\tStatus: ", postState.supplyCount[adventurer], preState.supplyCount[adventurer] + netSupply);
