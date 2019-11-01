@@ -14,7 +14,7 @@ int main() {
 	int numSuccess = 0;
 	int numFail = 0;
 
-	int i, j m;
+	int i, j, m;
 	int testCount = 0;
 
 	//initialize relevant card variables
@@ -22,7 +22,7 @@ int main() {
 	//some of these values will change depending on the test and card effect choice
 	int drawnCards = 0;
 	int discarded = 0;
-	int netCoins = 0;
+	//int netCoins = 0;
 	//int shuffledCards = 0;
 	//int netActions = 1;
 	int netSupply = 0;
@@ -66,7 +66,7 @@ int main() {
 			//copy pregame state over to post game
 			memcpy(&postState, &preState, sizeof (struct gameState));
 
-			print("-- TEST %d: choice1 = %d, choice2 = %d --\n", testCount + 1, i, j);
+			printf("-- TEST %d: choice1 = %d, choice2 = %d --\n", testCount + 1, i, j);
 
 			//change choice variables based on card effects
 			choice1 = i;
