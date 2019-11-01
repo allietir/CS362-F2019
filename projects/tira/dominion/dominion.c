@@ -841,8 +841,8 @@ int ambassadorRefactor(int choice1, int choice2, struct gameState *state, int ha
     //increase supply count for choosen card by amount being discarded
     //state->supplyCount[state->hand[currentPlayer][choice1]] += choice2;
 
-    //each other player gains a copy of revealed card
-    for (i = 0; i < state->numPlayers; i++)
+    
+    for (i = 0; i < state->numPlayers; i++)//each other player gains a copy of revealed card
     {
         if (i != currentPlayer)
         {
