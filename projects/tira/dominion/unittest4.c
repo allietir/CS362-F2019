@@ -187,12 +187,13 @@ int main() {
 	}
 
 	//*************************************************************************************************************************************
-	//set deck count of all other players equal to 1
+	//set deck count of all other players equal to 1 and discard count to 5 to trigger a shuffle
 	for ( i = 0; i < preState.numPlayers; i++)
 	{
 		if (i != currentPlayer)
 		{
 			preState.deckCount[i] = 1;
+			preState.discardCount[i] = 5;
 		}
 	}
 
@@ -203,6 +204,8 @@ int main() {
 		memcpy(&postState, &preState, sizeof (struct gameState));
 
 		postState.deck[nextPlayer][postState.deckCount[nextPlayer]-1] = nextTopCard[i];
+		postState.discard[nextPlayer][preState.discardCount[nextPlayer]] = topCard[i];
+
 
 		//reset card names
 		strcpy(firstCard, "");
@@ -239,8 +242,8 @@ int main() {
 			netActions = 0;
 		}
 
-		//can only discard 1 card from deck
-		deckDiscard = 1;
+		//still discarding 2 cards, only after post shuffle
+		deckDiscard = 2;
 
 		printf("-- TEST %d: nextPlayer deck count = 1, 1st card = %s --\n", testCount + 1, firstCard);
 
@@ -283,8 +286,8 @@ int main() {
 			numFail++;
 		}
 
-		printf("Test: nextPlayer deck count = %d, expected = %d\t\tStatus: ", postState.deckCount[nextPlayer], preState.deckCount[nextPlayer] - deckDiscard);
-		if (postState.deckCount[nextPlayer] == preState.deckCount[nextPlayer] - deckDiscard)
+		printf("Test: nextPlayer deck count = %d, expected = %d\t\tStatus: ", postState.deckCount[nextPlayer], preState.deckCount[nextPlayer] + preState.discardCount[nextPlayer] - deckDiscard);
+		if (postState.deckCount[nextPlayer] == preState.deckCount[nextPlayer] + preState.discardCount[nextPlayer] - deckDiscard)
 		{
 			printf("SUCCESS\n");
 			numSuccess++;
@@ -301,23 +304,27 @@ int main() {
 	}
 
 	//*************************************************************************************************************************************
-	//set deck count of all other players equal to 0
+	//set deck count of all other players equal to 0 and discard count to 5 to trigger a shuffle
 	for ( i = 0; i < preState.numPlayers; i++)
 	{
 		if (i != currentPlayer)
 		{
 			preState.deckCount[i] = 0;
+			preState.discardCount[i] = 5;
 		}
 	}
 
 	//Finally, test for no cards in next player's library
+	//This one is tricky to test because the deck will be shuffled, and we cannot have expected values for the current player.
 	printf("-- TEST %d: nextPlayer deck count = 0 --\n", testCount + 1);
 
 	//all changes should be 0
 	netCoins = 0;
 	drawnCards = 0;
 	netActions = 0;
-	deckDiscard = 0;
+
+	//still discarding 2 cards, only after post shuffle
+	deckDiscard = 2;
 
 	//copy pregame state over to post game
 	memcpy(&postState, &preState, sizeof (struct gameState));
@@ -325,44 +332,8 @@ int main() {
 	//call the tribute card
 	cardEffect(tribute, choice1, choice2, choice3, &postState, handPos, &bonus);
 
-	printf("Test: currentPlayer hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - discarded + drawnCards);
-	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - discarded + drawnCards)
-	{
-		printf("SUCCESS\n");
-		numSuccess++;
-	}
-	else
-	{
-		printf("FAIL\n");
-		numFail++;
-	}
-
-	printf("Test: currentPlayer coins = %d, expected = %d\t\tStatus: ", postState.coins, preState.coins + netCoins);
-	if (postState.coins == preState.coins + netCoins)
-	{
-		printf("SUCCESS\n");
-		numSuccess++;
-	}
-	else
-	{
-		printf("FAIL\n");
-		numFail++;
-	}
-
-	printf("Test: currentPlayer actions = %d, expected = %d\t\tStatus: ", postState.numActions, preState.numActions + netActions);
-	if (postState.numActions == preState.numActions + netActions)
-	{
-		printf("SUCCESS\n");
-		numSuccess++;
-	}
-	else
-	{
-		printf("FAIL\n");
-		numFail++;
-	}
-
-	printf("Test: nextPlayer deck count = %d, expected = %d\t\tStatus: ", postState.deckCount[nextPlayer], preState.deckCount[nextPlayer] - deckDiscard);
-	if (postState.deckCount[nextPlayer] == preState.deckCount[nextPlayer] - deckDiscard)
+	printf("Test: nextPlayer deck count = %d, expected = %d\t\tStatus: ", postState.deckCount[nextPlayer], preState.deckCount[nextPlayer] + preState.discardCount[nextPlayer] - deckDiscard);
+	if (postState.deckCount[nextPlayer] == preState.deckCount[nextPlayer] + preState.discardCount[nextPlayer] - deckDiscard)
 	{
 		printf("SUCCESS\n");
 		numSuccess++;
