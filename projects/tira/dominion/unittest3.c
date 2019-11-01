@@ -136,8 +136,37 @@ int main() {
 				numFail++;
 			}
 
+			//check out of bounds
+			if (choice2 > 2 || choice2 < 0)
+			{
+				printf("Test: choice2 = %d, exit status = %d, expected = -1\tStatus: ", j, result);
+				if (result == -1)
+				{
+					printf("SUCCESS\n");
+					numSuccess++;
+				}
+				else
+				{
+					printf("FAIL\n");
+					numFail++;
+				}
+			}
+			else
+			{
+				printf("Test: choice2 = %d, exit status = %d, expected = 0\tStatus: ", j, result);
+				if (result == 0)
+				{
+					printf("SUCCESS\n");
+					numSuccess++;
+				}
+				else
+				{
+					printf("FAIL\n");
+					numFail++;
+				}
+			}
+
 			printf("\n");
-			printf("%d", result);
 
 			testCount++;
 		}
