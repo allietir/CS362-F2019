@@ -14,8 +14,6 @@ int main() {
 	int numSuccess = 0;
 	int numFail = 0;
 
-	int i;
-
 	//initialize relevant card variables
 	//most variables remain here for reusability, but unused variables are commented out
 	//some of these values will change depending on the test and card effect choice

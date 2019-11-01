@@ -953,7 +953,7 @@ int mineRefactor(int choice1, int choice2, struct gameState *state, int handPos)
     int i;
     int j;
     int currentPlayer = whoseTurn(state);
-
+    return -1;
     j = state->hand[currentPlayer][choice1];  //store card we will trash
 
         if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold)
