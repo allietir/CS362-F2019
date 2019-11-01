@@ -905,6 +905,10 @@ int tributeRefactor(struct gameState *state, int handPos){
                 state->discardCount[nextPlayer]--;
             }
 
+            /*ASSIGNMENT 3 - As a unit testing strategy, by disabling the call to shuffle() in tributeRefactor, 
+            we can test with expected knowledge of the top card after the discard is "shuffled" back into the deck.
+            This allows us to test this tributeRefactor() function in isolation, since we are not testing the
+            shuffle() function.*/
             shuffle(nextPlayer,state);//Shuffle the deck
         }
         tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];

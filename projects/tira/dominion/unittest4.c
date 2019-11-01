@@ -187,7 +187,7 @@ int main() {
 	}
 
 	//*************************************************************************************************************************************
-	//set deck count of all other players equal to 1 and discard count to 5 to trigger a shuffle
+	//set deck count of all other players equal to 1 and discard count to 5 to trigger a "shuffle"
 	for ( i = 0; i < preState.numPlayers; i++)
 	{
 		if (i != currentPlayer)
@@ -198,54 +198,72 @@ int main() {
 	}
 
 	//test the 3 single card types
-	for (i = 0; i < 3; i++)
+	for (i = 0; i < 6; i++)
 	{
 		//copy pregame state over to post game
 		memcpy(&postState, &preState, sizeof (struct gameState));
 
-		postState.deck[nextPlayer][postState.deckCount[nextPlayer]-1] = nextTopCard[i];
-		postState.discard[nextPlayer][preState.discardCount[nextPlayer]] = topCard[i];
+		postState.deck[nextPlayer][postState.deckCount[nextPlayer]-1] = topCard[i];
 
+		//By disabling the call to shuffle() in tributeRefactor, we can test with expected knowledge of the top card after
+		//the discard is "shuffled" back into the deck.
+		postState.discard[nextPlayer][preState.discardCount[nextPlayer]-1] = nextTopCard[i];
 
 		//reset card names
 		strcpy(firstCard, "");
+		strcpy(secondCard, "");
 
 		//change variables based on revealed cards
 		//if top card is a treasure card
-		if (nextTopCard[i] == gold)
+		if (topCard[i] == gold)
 		{
 			netCoins = 2;
 			strcpy(firstCard, "treasure");
 		}
-		else
+		if (nextTopCard[i] == gold)
+		{
+			netCoins = 2;
+			strcpy(secondCard, "treasure");
+		}
+		if (topCard[i] != gold && nextTopCard[i] != gold)
 		{
 			netCoins = 0;
 		}
-		//if top card is a victory card
-		if (nextTopCard[i] == estate)
+		//if one of the cards is a victory card
+		if (topCard[i] == estate)
 		{
 			drawnCards = 2;
 			strcpy(firstCard, "victory");
 		}
-		else
+		if (nextTopCard[i] == estate)
+		{
+			drawnCards = 2;
+			strcpy(secondCard, "victory");
+		}
+		if (topCard[i] != estate && nextTopCard[i] != estate)
 		{
 			drawnCards = 0;
 		}
-		//if top card is an action card
-		if (nextTopCard[i] == baron)
+		//if one of the cards is an action card
+		if (topCard[i] == baron)
 		{
 			netActions = 2;
 			strcpy(firstCard, "action");
 		}
-		else
+		if (nextTopCard[i] == baron)
+		{
+			netActions = 2;
+			strcpy(secondCard, "action");
+		}
+		if (topCard[i] != baron && nextTopCard[i] != baron)
 		{
 			netActions = 0;
 		}
 
-		//still discarding 2 cards, only after post shuffle
+		//still discarding 2 cards total, only after post shuffle
 		deckDiscard = 2;
 
-		printf("-- TEST %d: nextPlayer deck count = 1, 1st card = %s --\n", testCount + 1, firstCard);
+		printf("-- TEST %d: nextPlayer deck count = 1, 1st card = %s, 2nd card = %s --\n", testCount + 1, firstCard, secondCard);
 
 		//call the tribute card
 		cardEffect(tribute, choice1, choice2, choice3, &postState, handPos, &bonus);
@@ -314,37 +332,128 @@ int main() {
 		}
 	}
 
-	//Finally, test for no cards in next player's library
-	//This one is tricky to test because the deck will be shuffled, and we cannot have expected values for the current player.
-	printf("-- TEST %d: nextPlayer deck count = 0 --\n", testCount + 1);
-
-	//all changes should be 0
-	netCoins = 0;
-	drawnCards = 0;
-	netActions = 0;
-
-	//still discarding 2 cards, only after post shuffle
-	deckDiscard = 2;
-
-	//copy pregame state over to post game
-	memcpy(&postState, &preState, sizeof (struct gameState));
-
-	//call the tribute card
-	cardEffect(tribute, choice1, choice2, choice3, &postState, handPos, &bonus);
-
-	printf("Test: nextPlayer deck count = %d, expected = %d\t\tStatus: ", postState.deckCount[nextPlayer], preState.deckCount[nextPlayer] + preState.discardCount[nextPlayer] - deckDiscard);
-	if (postState.deckCount[nextPlayer] == preState.deckCount[nextPlayer] + preState.discardCount[nextPlayer] - deckDiscard)
+	//test all card combinations
+	for (i = 0; i < 6; i++)
 	{
-		printf("SUCCESS\n");
-		numSuccess++;
-	}
-	else
-	{
-		printf("FAIL\n");
-		numFail++;
-	}
+		//copy pregame state over to post game
+		memcpy(&postState, &preState, sizeof (struct gameState));
 
-	printf("\n");
+		//By disabling the call to shuffle() in tributeRefactor, we can test with expected knowledge of the top cards after
+		//the discard is "shuffled" back into the deck.
+		postState.discard[nextPlayer][preState.discardCount[nextPlayer]-1] = nextTopCard[i];
+		postState.discard[nextPlayer][preState.discardCount[nextPlayer]-2] = nextTopCard[i];
+
+		//reset card names
+		strcpy(firstCard, "");
+		strcpy(secondCard, "");
+
+		//change variables based on revealed cards
+		//if top card is a treasure card
+		if (topCard[i] == gold)
+		{
+			netCoins = 2;
+			strcpy(firstCard, "treasure");
+		}
+		if (nextTopCard[i] == gold)
+		{
+			netCoins = 2;
+			strcpy(secondCard, "treasure");
+		}
+		if (topCard[i] != gold && nextTopCard[i] != gold)
+		{
+			netCoins = 0;
+		}
+		//if one of the cards is a victory card
+		if (topCard[i] == estate)
+		{
+			drawnCards = 2;
+			strcpy(firstCard, "victory");
+		}
+		if (nextTopCard[i] == estate)
+		{
+			drawnCards = 2;
+			strcpy(secondCard, "victory");
+		}
+		if (topCard[i] != estate && nextTopCard[i] != estate)
+		{
+			drawnCards = 0;
+		}
+		//if one of the cards is an action card
+		if (topCard[i] == baron)
+		{
+			netActions = 2;
+			strcpy(firstCard, "action");
+		}
+		if (nextTopCard[i] == baron)
+		{
+			netActions = 2;
+			strcpy(secondCard, "action");
+		}
+		if (topCard[i] != baron && nextTopCard[i] != baron)
+		{
+			netActions = 0;
+		}
+
+		//still discarding 2 cards total, only after post shuffle
+		deckDiscard = 2;
+
+		printf("-- TEST %d: nextPlayer deck count = 0, 1st card = %s, 2nd card = %s --\n", testCount + 1, firstCard, secondCard);
+
+		//call the tribute card
+		cardEffect(tribute, choice1, choice2, choice3, &postState, handPos, &bonus);
+
+		printf("Test: currentPlayer hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - discarded + drawnCards);
+		if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - discarded + drawnCards)
+		{
+			printf("SUCCESS\n");
+			numSuccess++;
+		}
+		else
+		{
+			printf("FAIL\n");
+			numFail++;
+		}
+
+		printf("Test: currentPlayer coins = %d, expected = %d\t\tStatus: ", postState.coins, preState.coins + netCoins);
+		if (postState.coins == preState.coins + netCoins)
+		{
+			printf("SUCCESS\n");
+			numSuccess++;
+		}
+		else
+		{
+			printf("FAIL\n");
+			numFail++;
+		}
+
+		printf("Test: currentPlayer actions = %d, expected = %d\t\tStatus: ", postState.numActions, preState.numActions + netActions);
+		if (postState.numActions == preState.numActions + netActions)
+		{
+			printf("SUCCESS\n");
+			numSuccess++;
+		}
+		else
+		{
+			printf("FAIL\n");
+			numFail++;
+		}
+
+		printf("Test: nextPlayer deck count = %d, expected = %d\t\tStatus: ", postState.deckCount[nextPlayer], preState.deckCount[nextPlayer] + preState.discardCount[nextPlayer] - deckDiscard);
+		if (postState.deckCount[nextPlayer] == preState.deckCount[nextPlayer] + preState.discardCount[nextPlayer] - deckDiscard)
+		{
+			printf("SUCCESS\n");
+			numSuccess++;
+		}
+		else
+		{
+			printf("FAIL\n");
+			numFail++;
+		}
+
+		printf("\n");
+
+		testCount++;
+	}	
 
 	printf("Tests completed for %s.\n", TESTCARD);
 	printf("%d out of %d tests passed.\n\n", numSuccess, numSuccess + numFail);
