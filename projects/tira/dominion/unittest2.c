@@ -46,8 +46,8 @@ int main() {
 	printf("----------------- Testing Card: %s -----------------\n\n", TESTCARD);
 
 	//*************************************************************************************************************
-	// TEST 1: choice1 = 1 = discard estate, +4 gold
-	printf("-- TEST 1: choice1 = 1 = +2 gold --\n");
+	// TEST 1: choice1 = 1 = +2 gold
+	printf("-- TEST 1: choice1 = 1 = +2 coins --\n");
 
 	//copy pregame state over to post game
 	memcpy(&postState, &preState, sizeof (struct gameState));
@@ -316,7 +316,7 @@ int main() {
 				numFail++;
 			}
 
-			printf("Test: layer %d deck count = %d, expected = %d\tStatus: ", i + 1, postState.deckCount[i], preState.deckCount[i] - drawnCards + shuffledCards);
+			printf("Test: player %d deck count = %d, expected = %d\tStatus: ", i + 1, postState.deckCount[i], preState.deckCount[i] - drawnCards + shuffledCards);
 			if (postState.deckCount[i] == preState.deckCount[i] - drawnCards + shuffledCards)
 			{
 				printf("SUCCESS\n");
