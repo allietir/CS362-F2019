@@ -5,7 +5,7 @@ testme: testme.c
 	./testme
 
 randomtestresults: 	
-	gcov testme.c -b -f >> randomtestresults.out
+	gcov testme.c -b -f > randomtestresults.out
 	cat testme.c.gcov >> randomtestresults.out
 
 all: testme randomtestresults
