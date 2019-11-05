@@ -8,7 +8,5 @@ randomtestresults:
 	gcov testme.c -b -f > randomtestresults.out
 	cat testme.c.gcov >> randomtestresults.out
 
-all: testme randomtestresults
-
 clean:
 	rm -f testme *.o *.gcov *gcno *.out *.gcda
