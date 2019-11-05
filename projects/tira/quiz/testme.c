@@ -22,7 +22,7 @@ char inputChar()
 //e to t which is the range 101 to 116 on the ASCII table.
 char *inputString()
 {
-  char randomString[6];
+  static char randomString[6];
   for (int i = 0; i < 6; i++)
   {
     //116 - 101 = 15, so we will add the range 15 to the character 'e'
