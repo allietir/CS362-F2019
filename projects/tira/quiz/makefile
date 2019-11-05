@@ -2,9 +2,9 @@ CFLAGS= -Wall -fpic -coverage -lm -std=c99
 
 testme: testme.c
 	gcc -o testme testme.c -g $(CFLAGS)
+	./testme
 
 randomtestresults: 	
-	./testme &> randomtestresults.out
 	gcov testme.c -b -f >> randomtestresults.out
 	cat testme.c.gcov >> randomtestresults.out
 
