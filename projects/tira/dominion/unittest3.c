@@ -124,7 +124,8 @@ int main() {
 				}
 			}
 
-			printf("Test: supply count = %d, expected = %d\tStatus: ", postState.supplyCount[preState.hand[currentPlayer][choice1]], preState.supplyCount[preState.hand[currentPlayer][choice1]] + netSupply - numPlayers - 1);
+			printf("Test: supply count = %d, expected = %d\tStatus: ", postState.supplyCount[preState.hand[currentPlayer][choice1]], 
+				preState.supplyCount[preState.hand[currentPlayer][choice1]] + netSupply - numPlayers - 1);
 			if (postState.supplyCount[preState.hand[currentPlayer][choice1]] == preState.supplyCount[preState.hand[currentPlayer][choice1]] + netSupply - numPlayers - 1)
 			{
 				printf("SUCCESS\n");
