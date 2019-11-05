@@ -23,7 +23,7 @@ char inputChar()
 char *inputString()
 {
   static char randomString[6];
-  for (int i = 0; i < 6; i++)
+  for (int i = 0; i < 5; i++)
   {
     //116 - 101 = 15, so we will add the range 15 to the character 'e'
     randomString[i] = 'e' + (rand() % 16);
