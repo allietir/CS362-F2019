@@ -16,7 +16,6 @@ int main() {
 
 	//success and fail counts
 	int numSuccess = 0;
-	int numFail = 0;
 	int testCount = 0;
 
 	int i, j;
@@ -77,12 +76,12 @@ int main() {
 
 		//randomize hand count, 1-5, so that there will always be at least 1 card in hand
 		//since playing baron is not possible if it was not in your hand
-		prestate.handCount[currentPlayer] = (rand() % 5) + 1;
+		preState.handCount[currentPlayer] = (rand() % 5) + 1;
 
 		//randomize position of estate card in hand
 		//also add a chance of no estate card in hand
-		placeEstate = rand() % (prestate.handCount[currentPlayer] + 1);
-		if (placeEstate < prestate.handCount[currentPlayer])
+		placeEstate = rand() % (preState.handCount[currentPlayer] + 1);
+		if (placeEstate < preState.handCount[currentPlayer])
 		{
 			//place the estate
 			preState.hand[currentPlayer][placeEstate] = estate;
@@ -93,9 +92,9 @@ int main() {
 			//get rid of any estates in hand
 			for ( j = 0; j < preState.handCount[currentPlayer]; j++)
 			{
-				if (postState.hand[currentPlayer][i] == estate)
+				if (preState.hand[currentPlayer][i] == estate)
 				{
-					postState.hand[currentPlayer][i] = mine;
+					preState.hand[currentPlayer][i] = mine;
 				}
 				estateInHand = 0;
 			}
