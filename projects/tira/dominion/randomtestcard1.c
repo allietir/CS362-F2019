@@ -51,9 +51,6 @@ int main() {
 	//i am deciding to keep the card array consistent for each test
 	int k[10] = {adventurer, minion, ambassador, gardens, mine, remodel, smithy, tribute, baron, great_hall};
 
-	//initialize a game using pregame state
-	initializeGame(numPlayers, k, seed, &preState);
-
 	printf("----------------- Testing Card: %s -----------------\n\n", TESTCARD);
 
 	printf("THE FOLLOWING TESTS FAILED\n");
@@ -69,6 +66,7 @@ int main() {
 		//randomize current player
 		currentPlayer = rand() % numPlayers;
 
+		//initialize a game using pregame state
 		initializeGame(numPlayers, k, seed, &preState);
 
 		//randomize deck size of current player
