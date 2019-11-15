@@ -929,7 +929,7 @@ int tributeRefactor(struct gameState *state, int handPos){
         /*Bug 7 added: added a negation "!" in front of the if statement, expected behavior is that if the revealed
         cards are not any of these victory cards, then the player will draw 2 cards. If the revealed cards are one
         of these victory cards, then the player will not draw any cards.*/
-        else if !(tributeRevealedCards[i] == estate || tributeRevealedCards[i] == duchy || tributeRevealedCards[i] == province || tributeRevealedCards[i] == gardens || tributeRevealedCards[i] == great_hall) { //Victory Card Found
+        else if (!(tributeRevealedCards[i] == estate || tributeRevealedCards[i] == duchy || tributeRevealedCards[i] == province || tributeRevealedCards[i] == gardens || tributeRevealedCards[i] == great_hall)) { //Victory Card Found
             drawCard(currentPlayer, state);
             drawCard(currentPlayer, state);
         }
