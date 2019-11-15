@@ -54,11 +54,14 @@ int main() {
 	printf("----------------- Testing Card: %s -----------------\n\n", TESTCARD);
 
 	printf("THE FOLLOWING TESTS FAILED\n");
+	printf("1\n");
 	printf("TestNum\tnumPlayers\tcurrentPlayer\thandCount\testateInHand\tcardEffectChoice\tTestStatus");
+	printf("2\n");
 
 	//Randomize the gamestate
 	for (i = 0; i < NUMTESTS; i++)
 	{
+		printf("3\n");
 		//randomize 1-4 players
 		numPlayers = (rand() % 4) + 1;
 		//randomize seed
