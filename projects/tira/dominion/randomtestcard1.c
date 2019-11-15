@@ -5,13 +5,18 @@
 #include <assert.h>
 #include "rngs.h"
 #include <stdlib.h>
+#include <time.h>
 
 #define TESTCARD "baron"
 
 int main() {
+	//seed rand
+	srand(time(NULL));
+
 	//success and fail counts
 	int numSuccess = 0;
 	int numFail = 0;
+	int testCount = 0;
 
 	int i;
 
@@ -43,6 +48,12 @@ int main() {
 	initializeGame(numPlayers, k, seed, &preState);
 
 	printf("----------------- Testing Card: %s -----------------\n\n", TESTCARD);
+
+	//Randomize the gamestate
+	//randomize hand size
+	//randomize library size
+	//randomize supply count
+	//randomize player card effect choice
 
 	//*************************************************************************************************************
 	// TEST 1: choice1 = 1 = discard estate, +4 gold
