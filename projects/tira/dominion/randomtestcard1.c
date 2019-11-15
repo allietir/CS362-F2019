@@ -8,7 +8,7 @@
 #include <time.h>
 
 #define TESTCARD "baron"
-#define NUMTESTS 1000
+#define NUMTESTS 100
 
 int main() {
 	//seed rand
