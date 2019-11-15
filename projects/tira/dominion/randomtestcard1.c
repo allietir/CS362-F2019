@@ -53,11 +53,6 @@ int main() {
 
 	printf("----------------- Testing Card: %s -----------------\n\n", TESTCARD);
 
-	printf("THE FOLLOWING TESTS FAILED\n");
-	printf("1\n");
-	printf("TestNum\tnumPlayers\tcurrentPlayer\thandCount\testateInHand\tcardEffectChoice\tTestStatus");
-	printf("2\n");
-
 	//Randomize the gamestate
 	for (i = 0; i < NUMTESTS; i++)
 	{
@@ -93,9 +88,9 @@ int main() {
 			//get rid of any estates in hand
 			for ( j = 0; j < preState.handCount[currentPlayer]; j++)
 			{
-				if (preState.hand[currentPlayer][i] == estate)
+				if (preState.hand[currentPlayer][j] == estate)
 				{
-					preState.hand[currentPlayer][i] = mine;
+					preState.hand[currentPlayer][j] = mine;
 				}
 				estateInHand = 0;
 			}
@@ -124,9 +119,6 @@ int main() {
 		//call the card
 		cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
 
-
-
-		printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - discarded + drawnCards);
 		testCount++;
 		if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - discarded + drawnCards)
 		{
@@ -134,9 +126,9 @@ int main() {
 		}
 		else
 		{
-			//printf("TEST #%d FAILED: incorrect handcount\n", testCount);
+			printf("TEST #%d FAILED: incorrect handcount\n", testCount);
 			//printf("TestNum\tnumPlayers\tcurrentPlayer\thandCount\testateInHand\tcardEffectChoice\tTestStatus");
-			printf("%d\t%d\t%d\t%d\t%d\t%d\tincorrect handcount", testCount, numPlayers, currentPlayer, preState.handCount[currentPlayer], estateInHand, choice1);
+			//printf("%d\t%d\t%d\t%d\t%d\t%d\tincorrect handcount", testCount, numPlayers, currentPlayer, preState.handCount[currentPlayer], estateInHand, choice1);
 			//printf("\tINPUTS:")
 		}
 		/*
