@@ -723,7 +723,7 @@ int baronRefactor(int card, int choice1, struct gameState *state){
                 In most cases, this will result in an infinite loop unless the first card is an estate
                 card or there is only 1 card in hand.*/
                 //ASSIGNMENT 4 - getting rid of potential infinite loop so that this may be run and tested
-                //p++;//Next card
+                p++;//Next card
             }
         }
     }
