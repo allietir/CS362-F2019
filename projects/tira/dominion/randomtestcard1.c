@@ -56,7 +56,7 @@ int main() {
 	//Randomize the gamestate
 	for (i = 0; i < NUMTESTS; i++)
 	{
-		printf("3\n");
+		printf("1\n");
 		//randomize 1-4 players
 		numPlayers = (rand() % 4) + 1;
 		//randomize seed
@@ -96,6 +96,7 @@ int main() {
 			}
 		}
 
+		printf("2\n");
 		//randomize player choice
 		choice1 = rand() % 2;
 		if (choice1 == 0)
@@ -115,9 +116,11 @@ int main() {
 
 		//copy pregame state over to post game
 		memcpy(&postState, &preState, sizeof (struct gameState));
+		printf("3\n");
 
 		//call the card
 		cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
+		printf("4\n");
 
 		testCount++;
 		if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - discarded + drawnCards)
@@ -186,6 +189,7 @@ int main() {
 	//randomize library size
 	//randomize supply count
 	//randomize player card effect choice
+		printf("5\n");
 	}
 	/*
 
