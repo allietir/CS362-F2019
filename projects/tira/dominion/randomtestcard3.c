@@ -257,7 +257,6 @@ int main() {
 
 	printf("Tests completed for %s.\n", TESTCARD);
 	printf("%d out of %d tests passed.\n\n", numSuccess, testCount);
-	printf("%d out of %d tests passed.\n\n", numSuccess, testCount);
 	printf("%d failed tests relating to hand count for current player.\n", currentHandError);
 	printf("%d failed tests relating to deck count for current player.\n", currentDeckError);
 	printf("%d failed tests relating to number of coins.\n", coinError);
