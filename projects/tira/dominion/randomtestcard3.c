@@ -48,6 +48,11 @@ int main() {
 	//i am deciding to keep the card array consistent for each test
 	int k[10] = {adventurer, minion, ambassador, gardens, mine, remodel, smithy, tribute, baron, great_hall};
 
+	//top card array and placeholders
+	int topCard[3] = {gold, estate, baron};
+	int firstCard;
+	int secondCard;
+
 	printf("----------------- Testing Card: %s -----------------\n\n", TESTCARD);
 
 	//Randomize the gamestate
@@ -56,7 +61,7 @@ int main() {
 		//randomize 2-4 players
 		numPlayers = (rand() % 3) + 2;
 		//randomize seed
-		seed = rand() % 999999999;
+		seed = rand() % 9999999;
 		//randomize current player
 		currentPlayer = rand() % numPlayers;
 		//set the index of the player to the left
@@ -69,61 +74,51 @@ int main() {
 			nextPlayer = currentPlayer + 1;
 		}
 
-
 		//initialize a game using pregame state
 		initializeGame(numPlayers, k, seed, &preState);
 
-		//randomize deck size of current player
-		preState.deckCount[currentPlayer] = rand() % 30;
-
 		//randomize hand count, 1-5, so that there will always be at least 1 card in hand
-		//since playing baron is not possible if it was not in your hand
+		//since playing tribute is not possible if it was not in your hand
 		preState.handCount[currentPlayer] = (rand() % 5) + 1;
 
-		//randomize position of estate card in hand
-		//also add a chance of no estate card in hand
-		placeEstate = rand() % (preState.handCount[currentPlayer] + 1);
-		if (placeEstate < preState.handCount[currentPlayer])
-		{
-			//place the estate
-			preState.hand[currentPlayer][placeEstate] = estate;
-			estateInHand = 1;
-		}
-		else //no estates
-		{
-			//get rid of any estates in hand
-			for ( j = 0; j < preState.handCount[currentPlayer]; j++)
-			{
-				if (preState.hand[currentPlayer][j] == estate)
-				{
-					preState.hand[currentPlayer][j] = mine;
-				}
-				estateInHand = 0;
-			}
-		}
+		//randomize deck size and discard count of next player
+		//the total deck and discard count will always equal 10
+		preState.deckCount[nextPlayer] = rand() % 10;
+		preState.discardCount[nextPlayer] = 10 - preState.deckCount[nextPlayer];
 
-		//randomize player choice
-		choice1 = rand() % 2;
-		if (choice1 == 0)
+
+		if (preState.deckCount[nextPlayer] > 1)
 		{
-			//change choice variables based on card effects
-			discarded = 0;
-			netCoins = 0;
-			netSupply = -1;
+			//randomize top 2 cards
+			firstCard = topCard[rand() % 3];
+			secondCard = topCard[rand() % 3];
+			preState.deck[nextPlayer][preState.deckCount[nextPlayer]-1] = firstCard;
+			preState.deck[nextPlayer][preState.deckCount[nextPlayer]-2] = secondCard;
 		}
-		else if (choice1 == 1)
+		if (preState.deckCount[nextPlayer] == 1)
 		{
-			//change choice variables based on card effects
-			discarded = 1;
-			netCoins = 4;
-			netSupply = 0;
+			//By disabling the call to shuffle() in tributeRefactor, we can test with expected knowledge of the top card after
+			//the discard is "shuffled" back into the deck.
+			firstCard = topCard[rand() % 3];
+			secondCard = topCard[rand() % 3];
+			preState.deck[nextPlayer][preState.deckCount[nextPlayer]-1] = firstCard;
+			preState.discard[nextPlayer][preState.discardCount[nextPlayer]-1] = secondCard;
+		}
+		if (preState.deckCount[nextPlayer] == 0)
+		{
+			//By disabling the call to shuffle() in tributeRefactor, we can test with expected knowledge of the top cards after
+			//the discard is "shuffled" back into the deck.
+			firstCard = topCard[rand() % 3];
+			secondCard = topCard[rand() % 3];
+			preState.discard[nextPlayer][preState.discardCount[nextPlayer]-1] = firstCard;
+			preState.discard[nextPlayer][preState.discardCount[nextPlayer]-2] = secondCard;
 		}
 
 		//copy pregame state over to post game
 		memcpy(&postState, &preState, sizeof (struct gameState));
 
 		//call the card
-		cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
+		cardEffect(tribute, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 		//test handcount
 		testCount++;
