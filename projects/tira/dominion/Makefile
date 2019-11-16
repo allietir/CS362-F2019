@@ -33,7 +33,7 @@ randomtestcard2: randomtestcard2.c dominion.o rngs.o
 randomtestcard3: randomtestcard3.c dominion.o rngs.o
 	gcc -o randomtestcard3 -g randomtestcard3.c dominion.o rngs.o $(CFLAGS)
 
-randomtestresults: randomtestcard1 randomtestcard2
+randomtestresults: randomtestcard1 randomtestcard2 randomtestcard3
 	./randomtestcard1 &> randomtestresults.out
 	./randomtestcard2 &>> randomtestresults.out
 	./randomtestcard3 &>> randomtestresults.out
