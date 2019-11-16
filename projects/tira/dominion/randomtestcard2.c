@@ -54,7 +54,7 @@ int main() {
 		//randomize 1-4 players
 		numPlayers = (rand() % 4) + 1;
 		//randomize seed
-		seed = rand() % 99999999;
+		seed = rand() % 999999;
 		//randomize current player
 		currentPlayer = rand() % numPlayers;
 
