@@ -102,7 +102,7 @@ int main() {
 		memcpy(&postState, &preState, sizeof (struct gameState));
 
 		//call the card
-		cardEffect(minion, choice1, choice2, choice3, &postState, handPos, &bonus);
+		//cardEffect(minion, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 		//test handcount
 		testCount++;
