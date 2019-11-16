@@ -26,8 +26,9 @@ int main() {
 	int discarded = 0;
 	int netCoins = 0;
 	int shuffledCards = 0;
-	int netBuys = 1;
-	int netSupply = 0;
+	//int netBuys = 1;
+	int netActions = 1;
+	//int netSupply = 0;
 
 	//initialize cardEffect() variables
 	int handPos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
@@ -62,33 +63,20 @@ int main() {
 		//initialize a game using pregame state
 		initializeGame(numPlayers, k, seed, &preState);
 
-		//randomize deck size of current player
-		preState.deckCount[currentPlayer] = rand() % 30;
+		//randomize deck size of all players
+		for (j = 0; j < numPlayers; j++)
+		{
+			preState.deckCount[j] = rand() % 30;
+		}
 
 		//randomize hand count, 1-5, so that there will always be at least 1 card in hand
 		//since playing baron is not possible if it was not in your hand
 		preState.handCount[currentPlayer] = (rand() % 5) + 1;
 
-		//randomize position of estate card in hand
-		//also add a chance of no estate card in hand
-		placeEstate = rand() % (preState.handCount[currentPlayer] + 1);
-		if (placeEstate < preState.handCount[currentPlayer])
+		//randomize hand count of all players from 1-5
+		for (j = 0; j < numPlayers; j++)
 		{
-			//place the estate
-			preState.hand[currentPlayer][placeEstate] = estate;
-			estateInHand = 1;
-		}
-		else //no estates
-		{
-			//get rid of any estates in hand
-			for ( j = 0; j < preState.handCount[currentPlayer]; j++)
-			{
-				if (preState.hand[currentPlayer][j] == estate)
-				{
-					preState.hand[currentPlayer][j] = mine;
-				}
-				estateInHand = 0;
-			}
+			preState.handCount[j] = (rand() % 5) + 1;
 		}
 
 		//randomize player choice
@@ -96,23 +84,27 @@ int main() {
 		if (choice1 == 0)
 		{
 			//change choice variables based on card effects
-			discarded = 0;
+			choice2 = 1;
+			discarded = preState.handCount[currentPlayer];
+			drawnCards = 4;
 			netCoins = 0;
-			netSupply = -1;
+			netActions = 1;
 		}
 		else if (choice1 == 1)
 		{
 			//change choice variables based on card effects
-			discarded = 1;
-			netCoins = 4;
-			netSupply = 0;
+			choice2 = 0;
+			discarded = 0;
+			drawnCards = 0;
+			netCoins = 2;
+			netActions = 1;
 		}
 
 		//copy pregame state over to post game
 		memcpy(&postState, &preState, sizeof (struct gameState));
 
 		//call the card
-		cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
+		cardEffect(minion, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 		//test handcount
 		testCount++;
@@ -122,7 +114,7 @@ int main() {
 		}
 		else
 		{
-			printf("TEST #%d FAILED: incorrect handcount\n", testCount);
+			printf("TEST #%d FAILED: current player incorrect handcount\n", testCount);
 		}
 
 		//test deckcount
@@ -133,7 +125,7 @@ int main() {
 		}
 		else
 		{
-			printf("TEST #%d FAILED: incorrect deckcount\n", testCount);
+			printf("TEST #%d FAILED: current player incorrect deckcount\n", testCount);
 		}
 
 		//test coins
@@ -147,27 +139,61 @@ int main() {
 			printf("TEST #%d FAILED: incorrect coins\n", testCount);
 		}
 
-		//test buys
+		//test actions
 		testCount++;
-		if (postState.numBuys == preState.numBuys + netBuys)
+		if (postState.numActions == preState.numActions + netActions)
 		{
 			numSuccess++;
 		}
 		else
 		{
-			printf("TEST #%d FAILED: incorrect buys\n", testCount);
+			printf("TEST #%d FAILED: incorrect actions\n", testCount);
 		}
 
-		//test estate supply
-		testCount++;
-		if (postState.supplyCount[estate] == preState.supplyCount[estate] + netSupply)
+		//tests for players who are not the current player
+		if (choice2 == 1)
 		{
-			numSuccess++;
+			for ( j = 0; j < postState.numPlayers; j++)
+			{
+				if (j != currentPlayer)
+				{
+					//if the player had at least 5 cards in hand
+					if (preState.handCount[j] >= 5)
+					{
+						discarded = preState.handCount[j];
+						drawnCards = 4;
+					}
+					else
+					{
+						discarded = 0;
+						drawnCards = 0;
+					}
+
+					shuffledCards = 0;
+
+					testCount++;
+					if (postState.handCount[j] == preState.handCount[j] - discarded + drawnCards)
+					{
+						numSuccess++;
+					}
+					else
+					{
+						printf("TEST #%d FAILED: noncurrent player %d incorrect hand count\n", testCount, j + 1);
+					}
+
+					testCount++;
+					if (postState.deckCount[j] == preState.deckCount[j] - drawnCards + shuffledCards)
+					{
+						numSuccess++;
+					}
+					else
+					{
+						printf("TEST #%d FAILED: noncurrent player %d incorrect deck count\n", testCount, j + 1);
+					}
+				}
+			}
 		}
-		else
-		{
-			printf("TEST #%d FAILED: incorrect estate supply\n", testCount);
-		}
+		
 	}
 
 	printf("\n");
@@ -177,7 +203,7 @@ int main() {
 
 	return 0;
 }
-
+/*
 int main() {
 	//success and fail counts
 	int numSuccess = 0;
@@ -464,40 +490,7 @@ int main() {
 		numFail++;
 	}
 
-	//tests for players who are not the current player
-	for ( i = 0; i < postState.numPlayers; i++)
-	{
-		if (i != currentPlayer)
-		{
-			discarded = preState.handCount[i];
-			drawnCards = 4;
-			shuffledCards = 0;
-
-			printf("Test: player %d hand count = %d, expected = %d\tStatus: ", i + 1, postState.handCount[i], preState.handCount[i] - discarded + drawnCards);
-			if (postState.handCount[i] == preState.handCount[i] - discarded + drawnCards)
-			{
-				printf("SUCCESS\n");
-				numSuccess++;
-			}
-			else
-			{
-				printf("FAIL\n");
-				numFail++;
-			}
-
-			printf("Test: player %d deck count = %d, expected = %d\tStatus: ", i + 1, postState.deckCount[i], preState.deckCount[i] - drawnCards + shuffledCards);
-			if (postState.deckCount[i] == preState.deckCount[i] - drawnCards + shuffledCards)
-			{
-				printf("SUCCESS\n");
-				numSuccess++;
-			}
-			else
-			{
-				printf("FAIL\n");
-				numFail++;
-			}
-		}
-	}
+	
 
 	printf("\n");
 
@@ -506,3 +499,4 @@ int main() {
 
 	return 0;
 }
+*/
