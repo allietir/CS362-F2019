@@ -38,8 +38,8 @@ int main() {
 	int numPlayers;
 	int currentPlayer;
 
-	//decides if an estate will be placed
-	int placeEstate;
+	//index of player to the left
+	int nextPlayer;
 
 	//two game states used to compare card effects
 	struct gameState preState, postState;
@@ -53,12 +53,22 @@ int main() {
 	//Randomize the gamestate
 	for (i = 0; i < NUMTESTS; i++)
 	{
-		//randomize 1-4 players
-		numPlayers = (rand() % 4) + 1;
+		//randomize 2-4 players
+		numPlayers = (rand() % 3) + 2;
 		//randomize seed
 		seed = rand() % 999999999;
 		//randomize current player
 		currentPlayer = rand() % numPlayers;
+		//set the index of the player to the left
+		if (currentPlayer == numPlayers - 1)
+		{
+			nextPlayer = 0;
+		}
+		else
+		{
+			nextPlayer = currentPlayer + 1;
+		}
+
 
 		//initialize a game using pregame state
 		initializeGame(numPlayers, k, seed, &preState);

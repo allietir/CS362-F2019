@@ -51,8 +51,8 @@ int main() {
 	//Randomize the gamestate
 	for (i = 0; i < NUMTESTS; i++)
 	{
-		//randomize 1-4 players
-		numPlayers = (rand() % 4) + 1;
+		//randomize 2-4 players
+		numPlayers = (rand() % 3) + 2;
 		//randomize seed
 		seed = rand() % 999999;
 		//randomize current player
