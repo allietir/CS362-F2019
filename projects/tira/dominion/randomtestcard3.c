@@ -18,7 +18,7 @@ int main() {
 	int numSuccess = 0;
 	int testCount = 0;
 
-	int i, j;
+	int i;
 
 	//initialize relevant card variables
 	//most variables remain here for reusability, but unused variables are commented out
@@ -28,6 +28,7 @@ int main() {
 	int netCoins = 0;
 	int shuffledCards = 0;
 	int netActions = 0;
+	int deckDiscard = 0;
 
 	//initialize cardEffect() variables
 	int handPos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
