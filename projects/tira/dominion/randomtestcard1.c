@@ -38,6 +38,9 @@ int main() {
 	int numPlayers;
 	int currentPlayer;
 
+	//decides if an estate will be placed
+	int placeEstate;
+
 	//two game states used to compare card effects
 	struct gameState preState, postState;
 
@@ -74,7 +77,6 @@ int main() {
 		{
 			//place the estate
 			preState.hand[currentPlayer][placeEstate] = estate;
-			estateInHand = 1;
 		}
 		else //no estates
 		{
@@ -85,7 +87,6 @@ int main() {
 				{
 					preState.hand[currentPlayer][j] = mine;
 				}
-				estateInHand = 0;
 			}
 		}
 
@@ -93,7 +94,6 @@ int main() {
 		choice1 = rand() % 2;
 		if (choice1 == 0)
 		{
-			choice2 = 1;
 			//change choice variables based on card effects
 			discarded = 0;
 			netCoins = 0;
@@ -102,7 +102,6 @@ int main() {
 		else if (choice1 == 1)
 		{
 			//change choice variables based on card effects
-			choice2 = 0;
 			discarded = 1;
 			netCoins = 4;
 			netSupply = 0;
