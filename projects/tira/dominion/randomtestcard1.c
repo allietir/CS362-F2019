@@ -14,7 +14,7 @@ int main() {
 	//seed rand
 	srand(time(NULL));
 
-	//success and fail counts
+	//success and test counts
 	int numSuccess = 0;
 	int testCount = 0;
 
@@ -40,9 +40,6 @@ int main() {
 
 	//decides if an estate will be placed
 	int placeEstate;
-
-	//flag for test oracle
-	int estateInHand;
 
 	//two game states used to compare card effects
 	struct gameState preState, postState;
@@ -99,6 +96,7 @@ int main() {
 		choice1 = rand() % 2;
 		if (choice1 == 0)
 		{
+			choice2 = 1;
 			//change choice variables based on card effects
 			discarded = 0;
 			netCoins = 0;
@@ -107,6 +105,7 @@ int main() {
 		else if (choice1 == 1)
 		{
 			//change choice variables based on card effects
+			choice2 = 0;
 			discarded = 1;
 			netCoins = 4;
 			netSupply = 0;
@@ -118,6 +117,7 @@ int main() {
 		//call the card
 		cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
 
+		//test handcount
 		testCount++;
 		if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - discarded + drawnCards)
 		{
@@ -128,6 +128,7 @@ int main() {
 			printf("TEST #%d FAILED: incorrect handcount\n", testCount);
 		}
 
+		//test deckcount
 		testCount++;
 		if (postState.deckCount[currentPlayer] == preState.deckCount[currentPlayer] - drawnCards + shuffledCards)
 		{
@@ -138,6 +139,7 @@ int main() {
 			printf("TEST #%d FAILED: incorrect deckcount\n", testCount);
 		}
 
+		//test coins
 		testCount++;
 		if (postState.coins == preState.coins + netCoins)
 		{
@@ -148,6 +150,7 @@ int main() {
 			printf("TEST #%d FAILED: incorrect coins\n", testCount);
 		}
 
+		//test buys
 		testCount++;
 		if (postState.numBuys == preState.numBuys + netBuys)
 		{
@@ -158,6 +161,7 @@ int main() {
 			printf("TEST #%d FAILED: incorrect buys\n", testCount);
 		}
 
+		//test estate supply
 		testCount++;
 		if (postState.supplyCount[estate] == preState.supplyCount[estate] + netSupply)
 		{
@@ -167,15 +171,9 @@ int main() {
 		{
 			printf("TEST #%d FAILED: incorrect estate supply\n", testCount);
 		}
-
-
-		//randomize hand size
-	//randomize library size
-	//randomize supply count
-	//randomize player card effect choice
 	}
-	printf("\n");
 
+	printf("\n");
 
 	printf("Tests completed for %s.\n", TESTCARD);
 	printf("%d out of %d tests passed.\n\n", numSuccess, testCount);
