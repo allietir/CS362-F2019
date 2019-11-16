@@ -793,7 +793,9 @@ int minionRefactor(int choice1, int choice2, struct gameState *state, int handPo
                         /*Bug 4 added: changed i to j, expected behavior is that the incorrect player will draw
                         a card, and the same player won't draw a card twice in a row. This is also expected to
                         produce an error when there are less than 4 players.*/
-                        drawCard(j, state);
+                        //ASSIGNMENT 4 - disabling this bug because it will occassionally produce a seg fault,
+                        //and random testing aims for quantity over quality
+                        drawCard(i, state);
                     }
                 }
             }
