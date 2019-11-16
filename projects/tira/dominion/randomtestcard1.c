@@ -38,9 +38,6 @@ int main() {
 	int numPlayers;
 	int currentPlayer;
 
-	//decides if an estate will be placed
-	int placeEstate;
-
 	//two game states used to compare card effects
 	struct gameState preState, postState;
 

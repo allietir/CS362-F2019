@@ -5,6 +5,7 @@
 #include <assert.h>
 #include "rngs.h"
 #include <stdlib.h>
+#include <time.h>
 
 #define TESTCARD "tribute"
 #define NUMTESTS 1000
