@@ -14,9 +14,15 @@ int main() {
 	//seed rand
 	srand(time(NULL));
 
-	//success and test counts
+	//counts for our tests
 	int numSuccess = 0;
 	int testCount = 0;
+	int currentHandError = 0;
+	int currentDeckError = 0;
+	int coinError = 0;
+	int actionError = 0;
+	int otherHandError = 0;
+	int otherDeckError = 0;
 
 	int i, j;
 
@@ -113,6 +119,7 @@ int main() {
 		else
 		{
 			printf("TEST #%d FAILED: current player incorrect handcount\n", testCount);
+			currentHandError++;
 		}
 
 		//test deckcount
@@ -124,6 +131,7 @@ int main() {
 		else
 		{
 			printf("TEST #%d FAILED: current player incorrect deckcount\n", testCount);
+			currentDeckError++;
 		}
 
 		//test coins
@@ -135,6 +143,7 @@ int main() {
 		else
 		{
 			printf("TEST #%d FAILED: incorrect coins\n", testCount);
+			coinError++;
 		}
 
 		//test actions
@@ -146,6 +155,7 @@ int main() {
 		else
 		{
 			printf("TEST #%d FAILED: incorrect actions\n", testCount);
+			actionError++;
 		}
 
 		//tests for players who are not the current player
@@ -177,6 +187,7 @@ int main() {
 					else
 					{
 						printf("TEST #%d FAILED: noncurrent player %d incorrect hand count\n", testCount, j + 1);
+						otherHandError++;
 					}
 
 					testCount++;
@@ -187,6 +198,7 @@ int main() {
 					else
 					{
 						printf("TEST #%d FAILED: noncurrent player %d incorrect deck count\n", testCount, j + 1);
+						otherDeckError++;
 					}
 				}
 			}
@@ -198,6 +210,12 @@ int main() {
 
 	printf("Tests completed for %s.\n", TESTCARD);
 	printf("%d out of %d tests passed.\n\n", numSuccess, testCount);
+	printf("%d failed tests relating to hand count for current player.\n", currentHandError);
+	printf("%d failed tests relating to deck count for current player.\n", currentDeckError);
+	printf("%d failed tests relating to number of coins.\n", coinError);
+	printf("%d failed tests relating to number of actions.\n", actionError);
+	printf("%d failed tests relating to hand count for other players.\n", otherHandError);
+	printf("%d failed tests relating to deck count for other players.\n\n", otherDeckError);
 
 	return 0;
 }

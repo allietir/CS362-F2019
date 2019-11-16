@@ -14,9 +14,14 @@ int main() {
 	//seed rand
 	srand(time(NULL));
 
-	//success and test counts
+	//counts for our tests
 	int numSuccess = 0;
 	int testCount = 0;
+	int handError = 0;
+	int deckError = 0;
+	int buyError = 0;
+	int coinError = 0;
+	int estateError = 0;
 
 	int i, j;
 
@@ -122,6 +127,7 @@ int main() {
 		else
 		{
 			printf("TEST #%d FAILED: incorrect handcount\n", testCount);
+			handError++;
 		}
 
 		//test deckcount
@@ -133,6 +139,7 @@ int main() {
 		else
 		{
 			printf("TEST #%d FAILED: incorrect deckcount\n", testCount);
+			deckError++;
 		}
 
 		//test coins
@@ -144,6 +151,7 @@ int main() {
 		else
 		{
 			printf("TEST #%d FAILED: incorrect coins\n", testCount);
+			coinError++;
 		}
 
 		//test buys
@@ -155,6 +163,7 @@ int main() {
 		else
 		{
 			printf("TEST #%d FAILED: incorrect buys\n", testCount);
+			buyError++;
 		}
 
 		//test estate supply
@@ -166,6 +175,7 @@ int main() {
 		else
 		{
 			printf("TEST #%d FAILED: incorrect estate supply\n", testCount);
+			estateError++;
 		}
 	}
 
@@ -173,6 +183,11 @@ int main() {
 
 	printf("Tests completed for %s.\n", TESTCARD);
 	printf("%d out of %d tests passed.\n\n", numSuccess, testCount);
+	printf("%d failed tests relating to hand count.\n", handError);
+	printf("%d failed tests relating to deck count.\n", deckError);
+	printf("%d failed tests relating to number of buys.\n", buyError);
+	printf("%d failed tests relating to number of coins.\n", coinError);
+	printf("%d failed tests relating to estate supply.\n\n", estateError);
 
 	return 0;
 }

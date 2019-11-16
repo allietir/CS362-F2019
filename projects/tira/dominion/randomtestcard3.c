@@ -8,15 +8,20 @@
 #include <time.h>
 
 #define TESTCARD "tribute"
-#define NUMTESTS 2000
+#define NUMTESTS 1000
 
 int main() {
 	//seed rand
 	srand(time(NULL));
 
-	//success and test counts
+	//counts for our tests
 	int numSuccess = 0;
 	int testCount = 0;
+	int currentHandError = 0;
+	int currentDeckError = 0;
+	int coinError = 0;
+	int actionError = 0;
+	int nextDeckError = 0;
 
 	int i;
 
@@ -178,7 +183,8 @@ int main() {
 		}
 		else
 		{
-			printf("TEST #%d FAILED: incorrect handcount\n", testCount);
+			printf("TEST #%d FAILED: current player incorrect handcount\n", testCount);
+			currentHandError++;
 		}
 
 		//test deckcount
@@ -190,6 +196,7 @@ int main() {
 		else
 		{
 			printf("TEST #%d FAILED: current player incorrect deckcount\n", testCount);
+			currentDeckError++;
 		}
 
 		//test coins
@@ -201,6 +208,7 @@ int main() {
 		else
 		{
 			printf("TEST #%d FAILED: incorrect coins\n", testCount);
+			coinError++;
 		}
 
 		//test actions
@@ -212,6 +220,7 @@ int main() {
 		else
 		{
 			printf("TEST #%d FAILED: incorrect actions\n", testCount);
+			actionError++;
 		}
 
 		if (preState.deckCount[nextPlayer] > 1)
@@ -225,6 +234,7 @@ int main() {
 			else
 			{
 				printf("TEST #%d FAILED: next player incorrect deckcount\n", testCount);
+				nextDeckError++;
 			}
 		}
 		else if ( preState.deckCount[nextPlayer] == 1 || preState.deckCount[nextPlayer] == 0)
@@ -238,6 +248,7 @@ int main() {
 			else
 			{
 				printf("TEST #%d FAILED: next player incorrect deckcount\n", testCount);
+				nextDeckError++;
 			}
 		}
 	}
@@ -246,6 +257,12 @@ int main() {
 
 	printf("Tests completed for %s.\n", TESTCARD);
 	printf("%d out of %d tests passed.\n\n", numSuccess, testCount);
+	printf("%d out of %d tests passed.\n\n", numSuccess, testCount);
+	printf("%d failed tests relating to hand count for current player.\n", currentHandError);
+	printf("%d failed tests relating to deck count for current player.\n", currentDeckError);
+	printf("%d failed tests relating to number of coins.\n", coinError);
+	printf("%d failed tests relating to number of actions.\n", actionError);
+	printf("%d failed tests relating to deck count for next player.\n\n", nextDeckError);
 
 	return 0;
 }
