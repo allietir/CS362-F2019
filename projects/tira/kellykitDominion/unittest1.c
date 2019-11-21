@@ -57,6 +57,16 @@ int main() {
 	discarded = 1;
 	netCoins = 4;
 
+	//modify hand to contain at least one estate card
+	for ( i = 0; i < postState.handCount[currentPlayer]; i++)
+	{
+		if (postState.hand[currentPlayer][i] != estate && i != handPos)
+		{
+			postState.hand[currentPlayer][i] = estate;
+			break;
+		}
+	}
+
 	//call the card
 	cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
 
