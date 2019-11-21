@@ -62,6 +62,7 @@ int main() {
 	{
 		if (postState.hand[currentPlayer][i] != estate && i != handPos)
 		{
+			printf("cough\n");
 			postState.hand[currentPlayer][i] = estate;
 			break;
 		}
