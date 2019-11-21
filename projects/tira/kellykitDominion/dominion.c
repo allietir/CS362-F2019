@@ -846,7 +846,7 @@ int tributeAction(int player, int nextPlayer, struct gameState *state)
                 state->discardCount[nextPlayer]--;
             }
 
-            shuffle(nextPlayer, state);
+           // shuffle(nextPlayer, state);
         }
 
         //Add top two cards from deck to the tribure card array
