@@ -49,6 +49,16 @@ int main() {
 	// TEST 1: choice1 = 1 = discard estate, +4 gold
 	printf("-- TEST 1: choice1 = 1 = discard estate, +4 gold --\n");
 
+	//modify hand to contain at least one estate card
+	for ( i = 0; i < preState.handCount[currentPlayer]; i++)
+	{
+		if (preState.hand[currentPlayer][i] != estate && i != handPos)
+		{
+			preState.hand[currentPlayer][i] = estate;
+			break;
+		}
+	}
+
 	//copy pregame state over to post game
 	memcpy(&postState, &preState, sizeof (struct gameState));
 
@@ -56,17 +66,6 @@ int main() {
 	choice1 = 1;
 	discarded = 1;
 	netCoins = 4;
-
-	//modify hand to contain at least one estate card
-	for ( i = 0; i < postState.handCount[currentPlayer]; i++)
-	{
-		if (postState.hand[currentPlayer][i] != estate && i != handPos)
-		{
-			printf("cough\n");
-			postState.hand[currentPlayer][i] = estate;
-			break;
-		}
-	}
 
 	//call the card
 	cardEffect(baron, choice1, choice2, choice3, &postState, handPos, &bonus);
