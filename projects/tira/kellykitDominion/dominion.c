@@ -745,7 +745,7 @@ int minionAction(int player, int choice1, int choice2, struct gameState *state)
             {
                 if (state->handCount[i] > 4)
                 {
-                    while (state->handCount[i] >= 0)
+                    while (state->handCount[i] > 0)
                     {
                         discardCard((state->handCount[i] - 1), i, state, 0);
                     }
