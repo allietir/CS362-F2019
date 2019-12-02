@@ -64,7 +64,6 @@ int main() {
 		numFail++;
 	}
 
-
 	printf("Test: exit status = %d, expected = 0\tStatus: ", result);
 	if (result == 0)
 	{
@@ -107,7 +106,6 @@ int main() {
 		numFail++;
 	}
 
-
 	printf("Test: exit status = %d, expected = 0\tStatus: ", result);
 	if (result == 0)
 	{
@@ -148,7 +146,6 @@ int main() {
 		printf("FAIL\n");
 		numFail++;
 	}
-
 
 	printf("Test: exit status = %d, expected = 0\tStatus: ", result);
 	if (result == 0)
@@ -191,7 +188,6 @@ int main() {
 		numFail++;
 	}
 
-
 	printf("Test: exit status = %d, expected = 0\tStatus: ", result);
 	if (result == 0)
 	{
@@ -233,9 +229,49 @@ int main() {
 		numFail++;
 	}
 
-
 	printf("Test: exit status = %d, expected = 0\tStatus: ", result);
 	if (result == 0)
+	{
+		printf("SUCCESS\n");
+		numSuccess++;
+	}
+	else
+	{
+		printf("FAIL\n");
+		numFail++;
+	}
+
+	printf("\n");
+
+	//*************************************************************************************************************
+	// TEST 6: discard = copper, gain = gold
+	printf("-- TEST 5: trash = copper, gain = gold --\n");
+
+	//copy pregame state over to post game
+	memcpy(&postState, &preState, sizeof (struct gameState));
+
+	//change choice variables based on test
+	choice1 = 0;
+	choice2 = gold;
+	postState.hand[currentPlayer][choice1] = copper;
+
+	//call the card
+	result = cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
+
+	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1);
+	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1)
+	{
+		printf("SUCCESS\n");
+		numSuccess++;
+	}
+	else
+	{
+		printf("FAIL\n");
+		numFail++;
+	}
+
+	printf("Test: exit status = %d, expected = -1\tStatus: ", result);
+	if (result == -1)
 	{
 		printf("SUCCESS\n");
 		numSuccess++;
