@@ -806,24 +806,20 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         return -1;
 
     case mine:
-        printf("playing mine\n");
         j = state->hand[currentPlayer][choice1];  //store card we will trash
 
         if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold)
         {
-            printf("error1\n");
             return -1;
         }
 
         if (choice2 > treasure_map || choice2 < curse)
         {
-            printf("error2\n");
             return -1;
         }
 
         if ( (getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) )
         {
-            printf("error3\n");
            return -1;
         }
 
@@ -837,7 +833,6 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         {
             if (state->hand[currentPlayer][i] == j)
             {
-                printf("trashing treasure\n");
                 discardCard(i, currentPlayer, state, 0);
                 break;
             }

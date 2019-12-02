@@ -52,7 +52,6 @@ int main() {
 	//call the card
 	//cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
 	playCard(handPos, choice1, choice2, choice3, &postState);
-	endTurn(&postState);
 
 	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand);
 	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand)
@@ -68,6 +67,18 @@ int main() {
 
 	//state->playedCards[state->playedCardCount] = state->hand[currentPlayer][handPos];
     //state->playedCardCount++;
+
+    printf("Test: to be discarded = %d, expected = %d\tStatus: ", postState.playedCardCount, preState.playedCardCount + 1);
+	if (postState.playedCardCount == preState.playedCardCount + 1)
+	{
+		printf("SUCCESS\n");
+		numSuccess++;
+	}
+	else
+	{
+		printf("FAIL\n");
+		numFail++;
+	}
 
 	printf("Test: discard count = %d, expected = %d\tStatus: ", postState.discardCount[currentPlayer], preState.discardCount[currentPlayer]);
 	if (postState.discardCount[currentPlayer] == preState.discardCount[currentPlayer])
@@ -109,7 +120,6 @@ int main() {
 	//call the card
 	//cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
 	playCard(handPos, choice1, choice2, choice3, &postState);
-	endTurn(&postState);
 
 	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand);
 	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand)
