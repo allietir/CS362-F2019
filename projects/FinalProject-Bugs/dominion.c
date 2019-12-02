@@ -810,7 +810,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
         if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold)
         {
-            return -1;
+            //return -1;
         }
 
         if (choice2 > treasure_map || choice2 < curse)

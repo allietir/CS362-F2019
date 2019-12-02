@@ -77,7 +77,7 @@ int main() {
 	}
 
 	printf("Test: top card of discard != copper?\tStatus: ");
-	if (postState.discard[currentPlayer][(postState.discardCount[currentPlayer] - 1)] == copper)
+	if (postState.discard[currentPlayer][(postState.discardCount[currentPlayer] - 1)] != copper)
 	{
 		printf("SUCCESS\n");
 		numSuccess++;
@@ -129,7 +129,7 @@ int main() {
 	}
 
 	printf("Test: top card of discard != copper?\tStatus: ");
-	if (postState.discard[currentPlayer][(postState.discardCount[currentPlayer] - 1)] == copper)
+	if (postState.discard[currentPlayer][(postState.discardCount[currentPlayer] - 1)] != copper)
 	{
 		printf("SUCCESS\n");
 		numSuccess++;
