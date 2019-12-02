@@ -51,7 +51,6 @@ int main() {
 
 	//call the card
 	cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
-	//playCard(handPos, choice1, choice2, choice3, &postState);
 
 	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1);
 	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1)
@@ -65,6 +64,7 @@ int main() {
 		numFail++;
 	}
 
+	//use played cards pile since any non-trashed cards will be "discarded" into the played pile
     printf("Test: to be discarded = %d, expected = %d\tStatus: ", postState.playedCardCount, preState.playedCardCount + 1);
 	if (postState.playedCardCount == preState.playedCardCount + 1)
 	{
@@ -77,9 +77,63 @@ int main() {
 		numFail++;
 	}
 
-	postState.playedCards[postState.playedCardCount - 1] = silver;
 	printf("Test: top card of discard != copper?\tStatus: ");
 	if (postState.playedCards[postState.playedCardCount - 1] != copper)
+	{
+		printf("SUCCESS\n");
+		numSuccess++;
+	}
+	else
+	{
+		printf("FAIL\n");
+		numFail++;
+	}
+
+	printf("\n");
+
+
+	//*************************************************************************************************************
+	// TEST 1: discard = copper, gain = silver
+	printf("-- TEST: trash = copper, gain = silver --\n");
+
+	//copy pregame state over to post game
+	memcpy(&postState, &preState, sizeof (struct gameState));
+
+	//change choice variables based on test
+	choice1 = 0;
+	choice2 = gold;
+	postState.hand[currentPlayer][choice1] = silver;
+
+	//call the card
+	cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
+
+	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1);
+	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1)
+	{
+		printf("SUCCESS\n");
+		numSuccess++;
+	}
+	else
+	{
+		printf("FAIL\n");
+		numFail++;
+	}
+
+	//use played cards pile since any non-trashed cards will be "discarded" into the played pile
+    printf("Test: to be discarded = %d, expected = %d\tStatus: ", postState.playedCardCount, preState.playedCardCount + 1);
+	if (postState.playedCardCount == preState.playedCardCount + 1)
+	{
+		printf("SUCCESS\n");
+		numSuccess++;
+	}
+	else
+	{
+		printf("FAIL\n");
+		numFail++;
+	}
+
+	printf("Test: top card of discard != copper?\tStatus: ");
+	if (postState.playedCards[postState.playedCardCount - 1] != silver)
 	{
 		printf("SUCCESS\n");
 		numSuccess++;
