@@ -52,6 +52,7 @@ int main() {
 	//call the card
 	//cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
 	playCard(handPos, choice1, choice2, choice3, &postState);
+	endTurn(&postState);
 
 	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand);
 	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand)
@@ -108,6 +109,7 @@ int main() {
 	//call the card
 	//cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
 	playCard(handPos, choice1, choice2, choice3, &postState);
+	endTurn(&postState);
 
 	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand);
 	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand)
