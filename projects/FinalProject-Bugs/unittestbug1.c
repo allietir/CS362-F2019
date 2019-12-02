@@ -65,8 +65,8 @@ int main() {
 		numFail++;
 	}
 
-	state->playedCards[state->playedCardCount] = state->hand[currentPlayer][handPos];
-        state->playedCardCount++;
+	//state->playedCards[state->playedCardCount] = state->hand[currentPlayer][handPos];
+    //state->playedCardCount++;
 
 	printf("Test: discard count = %d, expected = %d\tStatus: ", postState.discardCount[currentPlayer], preState.discardCount[currentPlayer]);
 	if (postState.discardCount[currentPlayer] == preState.discardCount[currentPlayer])
