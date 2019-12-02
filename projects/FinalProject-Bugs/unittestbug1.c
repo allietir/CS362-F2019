@@ -101,8 +101,8 @@ int main() {
 
 	//change choice variables based on test
 	choice1 = 0;
-	choice2 = gold;
-	postState.hand[currentPlayer][choice1] = silver;
+	choice2 = copper;
+	postState.hand[currentPlayer][choice1] = copper;
 
 	//call the card
 	cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
@@ -133,7 +133,7 @@ int main() {
 	}
 
 	printf("Test: top card of discard != copper?\tStatus: ");
-	if (postState.playedCards[postState.playedCardCount - 1] != silver)
+	if (postState.playedCards[postState.playedCardCount - 1] != copper)
 	{
 		printf("SUCCESS\n");
 		numSuccess++;
