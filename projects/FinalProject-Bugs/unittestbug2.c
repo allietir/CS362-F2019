@@ -93,7 +93,7 @@ int main() {
 	postState.hand[currentPlayer][choice1] = silver;
 
 	//call the card
-	cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
+	result = cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1);
 	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1)
@@ -135,7 +135,7 @@ int main() {
 	postState.hand[currentPlayer][choice1] = copper;
 
 	//call the card
-	cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
+	result = cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1);
 	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1)
@@ -177,7 +177,7 @@ int main() {
 	postState.hand[currentPlayer][choice1] = silver;
 
 	//call the card
-	cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
+	result = cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1);
 	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1)
@@ -219,7 +219,7 @@ int main() {
 	postState.hand[currentPlayer][choice1] = gold;
 
 	//call the card
-	cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
+	result = cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
 
 	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1);
 	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1)
