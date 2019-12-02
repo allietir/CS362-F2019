@@ -39,7 +39,7 @@ int main() {
 
 	//*************************************************************************************************************
 	// TEST 1: discard = copper, gain = silver
-	printf("-- TEST: trash = copper, gain = silver --\n");
+	printf("-- TEST 1: trash = copper, gain = silver --\n");
 
 	//copy pregame state over to post game
 	memcpy(&postState, &preState, sizeof (struct gameState));
@@ -94,7 +94,7 @@ int main() {
 
 	//*************************************************************************************************************
 	// TEST 2: discard = copper, gain = silver
-	printf("-- TEST: trash = silver, gain = gold --\n");
+	printf("-- TEST 2: trash = silver, gain = gold --\n");
 
 	//copy pregame state over to post game
 	memcpy(&postState, &preState, sizeof (struct gameState));
@@ -147,8 +147,8 @@ int main() {
 	printf("\n");
 
 	//*************************************************************************************************************
-	// TEST 1: discard = copper, gain = copper
-	printf("-- TEST: trash = copper, gain = copper --\n");
+	// TEST 3: discard = copper, gain = copper
+	printf("-- TEST 3: trash = copper, gain = copper --\n");
 
 	//copy pregame state over to post game
 	memcpy(&postState, &preState, sizeof (struct gameState));
