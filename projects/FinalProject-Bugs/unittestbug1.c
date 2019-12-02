@@ -77,7 +77,7 @@ int main() {
 		numFail++;
 	}
 
-	postState.playedCards[postState.playedCardCount - 1] != silver;
+	postState.playedCards[postState.playedCardCount - 1] = silver;
 	printf("Test: top card of discard != copper?\tStatus: ");
 	if (postState.playedCards[postState.playedCardCount - 1] != copper)
 	{
