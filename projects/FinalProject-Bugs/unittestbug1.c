@@ -24,7 +24,7 @@ int main() {
 	int gainedHand = 1;
 
 	//initialize cardEffect() variables
-	int handPos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
+	int handPos = 1, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
 	
 	//variables for initializeGame()
 	int seed = 999;
@@ -55,7 +55,7 @@ int main() {
 	postState.hand[currentPlayer][choice1] = copper;
 
 	//call the card
-	cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
+	cardEffect(mine, choice1, choice2, choice3, &postState, 3, &bonus);
 
 	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1);
 	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1)
@@ -164,7 +164,7 @@ int main() {
 	postState.hand[currentPlayer][choice1] = copper;
 
 	//call the card
-	cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
+	cardEffect(mine, choice1, choice2, choice3, &postState, 3, &bonus);
 
 	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1);
 	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1)
