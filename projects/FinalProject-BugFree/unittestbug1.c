@@ -82,6 +82,19 @@ int main() {
 		numFail++;
 	}
 
+	printf("Test: discard count = %d, expected = %d\tStatus: ", postState.discardCount[currentPlayer], preState.discardCount[currentPlayer] + 1);
+	if (postState.discardCount[currentPlayer] == preState.discardCount[currentPlayer] + 1)
+	{
+		printf("SUCCESS\n");
+		numSuccess++;
+	}
+	else
+	{
+		printf("FAIL\n");
+		numFail++;
+	}
+
+
 	printf("Test: top card of discard != copper?\tStatus: ");
 	if (postState.playedCards[postState.playedCardCount - 1] != copper)
 	{
@@ -137,6 +150,18 @@ int main() {
 		numFail++;
 	}
 
+	printf("Test: discard count = %d, expected = %d\tStatus: ", postState.discardCount[currentPlayer], preState.discardCount[currentPlayer] + 1);
+	if (postState.discardCount[currentPlayer] == preState.discardCount[currentPlayer] + 1)
+	{
+		printf("SUCCESS\n");
+		numSuccess++;
+	}
+	else
+	{
+		printf("FAIL\n");
+		numFail++;
+	}
+
 	printf("Test: top card of discard != silver?\tStatus: ");
 	if (postState.playedCards[postState.playedCardCount - 1] != silver)
 	{
@@ -181,6 +206,18 @@ int main() {
 	//use played cards pile since any non-trashed cards will be "discarded" into the played pile
     printf("Test: to be discarded = %d, expected = %d\tStatus: ", postState.playedCardCount, preState.playedCardCount + 1);
 	if (postState.playedCardCount == preState.playedCardCount + 1)
+	{
+		printf("SUCCESS\n");
+		numSuccess++;
+	}
+	else
+	{
+		printf("FAIL\n");
+		numFail++;
+	}
+
+	printf("Test: discard count = %d, expected = %d\tStatus: ", postState.discardCount[currentPlayer], preState.discardCount[currentPlayer] + 1);
+	if (postState.discardCount[currentPlayer] == preState.discardCount[currentPlayer] + 1)
 	{
 		printf("SUCCESS\n");
 		numSuccess++;
