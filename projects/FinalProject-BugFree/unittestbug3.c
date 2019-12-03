@@ -24,7 +24,7 @@ int main() {
 	int gainedHand = 1;
 
 	//initialize cardEffect() variables
-	int handPos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
+	int handPos = 1, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
 	
 	//variables for initializeGame()
 	int seed = 999;
