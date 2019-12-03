@@ -27,7 +27,7 @@ int main() {
 	//Initialize the game
 	struct gameState state;
 	int k[10] = { adventurer, council_room, feast, gardens, mine, remodel, smithy, village, treasure_map, sea_hag };
-	int r = initializeGame(2, k, 13, &state);
+	initializeGame(2, k, 13, &state);
 
 	//Set player's hand to contain tribute card
 	state.hand[player][0] = tribute;
@@ -47,7 +47,7 @@ int main() {
 	//Call cardEffect on the target player's tribute card.
 	//int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
 	//only input that matters is card -> must be tribute
-	int result = cardEffect(tribute, 0, 0, 0, &state, 0, k);
+	cardEffect(tribute, 0, 0, 0, &state, 0, k);
 
 	//check result - two adventure cards should result in + 4 actions
 	if (state.numActions == 4) {

@@ -34,7 +34,7 @@ int main() {
 	//Initialize the game
 	struct gameState state;
 	int k[10] = { adventurer, council_room, feast, gardens, mine, remodel, smithy, village, treasure_map, sea_hag };
-	int r = initializeGame(2, k, 13, &state);
+	initializeGame(2, k, 13, &state);
 
 	//Set player's handCount and discardCount to 0
 	state.handCount[player] = 0;

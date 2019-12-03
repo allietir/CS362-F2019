@@ -29,7 +29,7 @@ int main() {
 	//initialize game with required cards (treasure_map and sea_hag)
 	struct gameState state;
 	int k[10] = { adventurer, council_room, feast, gardens, mine, remodel, smithy, village, treasure_map, sea_hag };
-	int r = initializeGame(2, k, 13, &state);
+	initializeGame(2, k, 13, &state);
 
 	//set supplyCounts of required cards to 0
 	state.supplyCount[treasure_map] = 0;

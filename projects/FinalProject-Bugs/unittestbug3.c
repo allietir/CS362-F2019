@@ -1,3 +1,8 @@
+/************************************************
+* Author:		Alexander Tir (tira)
+* Date:			12/2/2019
+************************************************/
+
 #include "dominion.h"
 #include "dominion_helpers.h"
 #include <string.h>

@@ -25,7 +25,7 @@ int main() {
 	//Initialize the game
 	struct gameState state;
 	int k[10] = { adventurer, council_room, feast, gardens, mine, remodel, smithy, village, treasure_map, sea_hag };
-	int r = initializeGame(2, k, 13, &state);
+	initializeGame(2, k, 13, &state);
 	state.coins = 0;
 
 	//Set player's hand to contain one feast card
@@ -35,7 +35,7 @@ int main() {
 	//Call cardEffect on player's feast card
 	//int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
 	//card = feast; choice1 = card to gain (smithy in this case); no other input matters
-	int result = cardEffect(feast, smithy, 0, 0, &state, 0, k);
+	cardEffect(feast, smithy, 0, 0, &state, 0, k);
 
 	printf("\nTesting Bug #6: feast-logic-error\n");
 	if (state.coins == 0) {
