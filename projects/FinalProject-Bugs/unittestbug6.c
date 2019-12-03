@@ -35,7 +35,7 @@ int main() {
 	//Call cardEffect on player's feast card
 	//int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
 	//card = feast; choice1 = card to gain (smithy in this case); no other input matters
-	cardEffect(feast, smithy, 0, 0, &state, 0, k);
+	cardEffect(feast, smithy, 0, 0, &state, 0, 0);
 
 	printf("\nTesting Bug #6: feast-logic-error\n");
 	if (state.coins == 0) {

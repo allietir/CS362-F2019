@@ -47,7 +47,7 @@ int main() {
 	//Call cardEffect on the target player's tribute card.
 	//int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
 	//only input that matters is card -> must be tribute
-	cardEffect(tribute, 0, 0, 0, &state, 0, k);
+	cardEffect(tribute, 0, 0, 0, &state, 0, 0);
 
 	//check result - two adventure cards should result in + 4 actions
 	if (state.numActions == 4) {
