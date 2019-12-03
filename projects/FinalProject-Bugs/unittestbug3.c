@@ -40,7 +40,7 @@ int main() {
 	//initialize a game using pregame state
 	initializeGame(numPlayers, k, seed, &preState);
 
-	printf("----------------- Testing for Bug #2 in Card: %s -----------------\n\n", TESTCARD);
+	printf("----------------- Testing for Bug #3 in Card: %s -----------------\n\n", TESTCARD);
 
 	//*************************************************************************************************************
 	// TEST 1: discard = copper, gain = silver
