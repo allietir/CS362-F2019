@@ -401,7 +401,7 @@ int isGameOver(struct gameState *state) {
 
     //if three supply pile are at 0, the game ends
     j = 0;
-    for (i = 0; i < 25; i++)
+    for (i = 0; i < 27; i++)
     {
         if (state->supplyCount[i] == 0)
         {
@@ -467,7 +467,7 @@ int scoreFor (int player, struct gameState *state) {
     }
 
     //score from deck
-    for (i = 0; i < state->discardCount[player]; i++)
+    for (i = 0; i < state->deckCount[player]; i++)
     {
         if (state->deck[player][i] == curse) {
             score = score - 1;
@@ -757,9 +757,6 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
             state->hand[currentPlayer][i] = -1;//Set to nothing
         }
         //Backup hand
-
-        //Update Coins for Buy
-        updateCoins(currentPlayer, state, 5);
         x = 1;//Condition to loop on
         while( x == 1) {//Buy one card
             if (supplyCount(choice1, state) <= 0) {
@@ -770,11 +767,11 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
                     printf("Cards Left: %d\n", supplyCount(choice1, state));
                 }
             }
-            else if (state->coins < getCost(choice1)) {
+            else if (getCost(choice1) > 5) {
                 printf("That card is too expensive!\n");
 
                 if (DEBUG) {
-                    printf("Coins: %d < %d\n", state->coins, getCost(choice1));
+                    printf("Card Cost: %d > 5\n", getCost(choice1));
                 }
             }
             else {
@@ -818,7 +815,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
             return -1;
         }
 
-        if ( (getCost(state->hand[currentPlayer][choice1]) + 3) < getCost(choice2) )
+        if ( (getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) )
         {
            return -1;
         }
@@ -833,7 +830,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         {
             if (state->hand[currentPlayer][i] == j)
             {
-                discardCard(i, currentPlayer, state, 1);
+                discardCard(i, currentPlayer, state, 0);
                 break;
             }
         }
@@ -843,7 +840,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     case remodel:
         j = state->hand[currentPlayer][choice1];  //store card we will trash
 
-        if ( (getCost(state->hand[currentPlayer][choice1]) + 2) < getCost(choice2) )
+        if ( (getCost(state->hand[currentPlayer][choice1]) + 2) > getCost(choice2) )
         {
             return -1;
         }
@@ -1068,7 +1065,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
             tributeRevealedCards[1] = -1;
         }
 
-        for (i = 0; i <= 2; i ++) {
+        for (i = 0; i < 2; i ++) {
             if (tributeRevealedCards[i] == copper || tributeRevealedCards[i] == silver || tributeRevealedCards[i] == gold) { //Treasure cards
                 state->coins += 2;
             }
@@ -1370,4 +1367,3 @@ int updateCoins(int player, struct gameState *state, int bonus)
 
 
 //end of dominion.c
-
