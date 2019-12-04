@@ -40,7 +40,7 @@ int main() {
 	//initialize a game using pregame state
 	initializeGame(numPlayers, k, seed, &preState);
 
-	printf("----------------- Testing for Bug #2 in Card: %s -----------------\n\n", TESTCARD);
+	printf("----------------- Testing for Bug #3 in Card: %s -----------------\n\n", TESTCARD);
 
 	//*************************************************************************************************************
 	// TEST 1: discard = copper, gain = silver
@@ -181,8 +181,8 @@ int main() {
 	//call the card
 	result = cardEffect(remodel, choice1, choice2, choice3, &postState, handPos, &bonus);
 
-	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1);
-	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1)
+	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand);
+	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand)
 	{
 		printf("SUCCESS\n");
 		numSuccess++;
@@ -222,8 +222,8 @@ int main() {
 	//call the card
 	result = cardEffect(mine, choice1, choice2, choice3, &postState, handPos, &bonus);
 
-	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1);
-	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1)
+	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand);
+	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand)
 	{
 		printf("SUCCESS\n");
 		numSuccess++;
@@ -263,8 +263,8 @@ int main() {
 	//call the card
 	result = cardEffect(remodel, choice1, choice2, choice3, &postState, handPos, &bonus);
 
-	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1);
-	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand - 1)
+	printf("Test: hand count = %d, expected = %d\tStatus: ", postState.handCount[currentPlayer], preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand);
+	if (postState.handCount[currentPlayer] == preState.handCount[currentPlayer] - trashed + drawnCards + gainedHand)
 	{
 		printf("SUCCESS\n");
 		numSuccess++;
