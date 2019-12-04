@@ -193,7 +193,7 @@ int main() {
 
 	printf("Test: top card of discard != copper?\tStatus: ");
 	if (postState.playedCards[postState.playedCardCount - 1] != copper)
-	{-
+	{
 		printf("SUCCESS\n");
 		numSuccess++;
 	}
