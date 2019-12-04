@@ -21,7 +21,7 @@ int main() {
 	//initialize relevant card variables
 	int drawnCards = 0;
 	int trashed = 1;
-	int gainedHand = 1;
+	int gainedHand = 0;
 
 	//initialize cardEffect() variables
 	int handPos = 1, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
