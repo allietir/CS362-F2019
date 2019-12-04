@@ -959,6 +959,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		if (choice1)
         {
             state->coins = state->coins + 2;
+	    *bonus += 2;
         }
         else if (choice2)		//discard hand, redraw 4, other players with 5+ cards discard hand and draw 4
         {
@@ -1010,6 +1011,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         {
             //+2 coins
             state->coins = state->coins + 2;
+	    *bonus += 2;
         }
         else
         {
@@ -1074,6 +1076,9 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
                 drawCard(currentPlayer, state);
                 drawCard(currentPlayer, state);
             }
+	    else if(tributeRevealedCards[i] == -1){
+		// do nothing
+	    }
             else { //Action Card
                 state->numActions = state->numActions + 2;
             }
@@ -1096,7 +1101,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
         for (i = 0; i < state->handCount[currentPlayer]; i++)
         {
-            if (i != handPos && i == state->hand[currentPlayer][choice1] && i != choice1)
+            if (i != handPos && state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1] && i != choice1)
             {
                 j++;
             }
